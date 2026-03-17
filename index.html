@@ -1730,133 +1730,142 @@ AI: [自动激活 kvm-virt-optimization]
                         </ul>
                     </div>
                 </div>
+            </div>
 
-                <div class="tool-card featured">
-                    <div class="featured-badge">本项目</div>
-                    <div class="tool-icon">📦</div>
-                    <h3 class="tool-name">container-resource-agent</h3>
-                    <p class="tool-desc">容器资源管理 Agent</p>
-                    <div class="tool-use-case">
-                        <strong>触发条件：</strong>
-                        <ul>
-                            <li>OOM、内存泄漏、CPU 限流</li>
-                            <li>Kubernetes、cgroups、资源配额</li>
-                        </ul>
-                        <strong>能力：</strong>
-                        <ul>
-                            <li>资源诊断和推荐</li>
-                            <li>Java/CPU 应用优化</li>
-                            <li>多租户隔离加固</li>
-                        </ul>
+            <!-- Multi-Agent Practice Guide -->
+            <div class="recommendation-card" style="margin-bottom: 48px;">
+                <div class="recommendation-header">
+                    <div class="rec-badge">实践指南</div>
+                    <h3>多 Agent 协作实战</h3>
+                    <p>如何在 Claude Code 中实践多 Agent 协作架构</p>
+                </div>
+                <div class="scenario-prompt" style="text-align: left;">
+
+                    <h4 style="color: var(--accent-pink); margin-bottom: 16px;">🎯 协作模式详解</h4>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 24px;">
+                        <div style="background: rgba(255, 183, 197, 0.1); padding: 16px; border-radius: 8px; border-left: 4px solid var(--accent-pink);">
+                            <strong style="color: var(--accent-pink);">模式 1：并行分析</strong>
+                            <pre style="margin-top: 8px; font-size: 12px;"><code>多个 Agent 同时分析不同方面
+├── [Perf Agent] → CPU 热点
+├── [KVM Agent] → VM Exit
+├── [NUMA Agent] → 内存亲和性
+└── 最后汇总结果</code></pre>
+                            <p style="margin: 8px 0 0; font-size: 12px; color: #666;">适用：全面性能评估</p>
+                        </div>
+                        <div style="background: rgba(168, 230, 207, 0.1); padding: 16px; border-radius: 8px; border-left: 4px solid var(--accent-mint);">
+                            <strong style="color: var(--accent-mint);">模式 2：流水线</strong>
+                            <pre style="margin-top: 8px; font-size: 12px;"><code>任务按顺序通过多个 Agent
+Step 1: [Perf] 识别瓶颈
+    ↓
+Step 2: [KVM] 深入分析
+    ↓
+Step 3: [Tuner] 生成方案
+    ↓
+Step 4: [Test] 验证效果</code></pre>
+                            <p style="margin: 8px 0 0; font-size: 12px; color: #666;">适用：问题 → 解决 → 验证</p>
+                        </div>
+                        <div style="background: rgba(212, 184, 224, 0.1); padding: 16px; border-radius: 8px; border-left: 4px solid var(--accent-lavender);">
+                            <strong style="color: var(--accent-lavender);">模式 3：条件分支</strong>
+                            <pre style="margin-top: 8px; font-size: 12px;"><code>根据分析结果决定下一步
+[Perf Agent] 分析
+    ├── CPU 限流? → [Kernel Agent]
+    ├── 跨 NUMA? → [NUMA Agent]
+    └── VM Exit? → [KVM Agent]</code></pre>
+                            <p style="margin: 8px 0 0; font-size: 12px; color: #666;">适用：根因不明确</p>
+                        </div>
+                        <div style="background: rgba(168, 216, 234, 0.1); padding: 16px; border-radius: 8px; border-left: 4px solid var(--accent-sky);">
+                            <strong style="color: var(--accent-sky);">模式 4：专家会诊</strong>
+                            <pre style="margin-top: 8px; font-size: 12px;"><code>一个 Agent 遇到难题，咨询其他
+[Debug Agent] 发现崩溃
+    ├── 咨询 [Kernel Agent]
+    ├── 咨询 [Memory Agent]
+    └── 确认根因</code></pre>
+                            <p style="margin: 8px 0 0; font-size: 12px; color: #666;">适用：复杂问题诊断</p>
+                        </div>
                     </div>
-                </div>
-            </div>
 
-            <!-- Agent Architecture -->
-            <div class="recommendation-card" style="margin-bottom: 48px;">
-                <div class="recommendation-header">
-                    <div class="rec-badge">架构设计</div>
-                    <h3>多 Agent 协作架构</h3>
-                    <p>针对云计算内核开发的 Agency-Agents 设计</p>
-                </div>
-                <div class="scenario-prompt" style="text-align: left;">
-                    <pre><code class="language-text">┌─────────────────────────────────────────────────────────────────┐
-│                      Orchestrator Agent                          │
-│                    (任务分解与协调)                               │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                 │
-│  ┌─────────────┐  ┌─────────────┐  ┌─────────────────────────┐  │
-│  │ Perf Agent  │  │ Debug Agent │  │   Code Review Agent     │  │
-│  │             │  │             │  │                         │  │
-│  │ • perf 分析  │  │ • 崩溃分析   │  │ • 代码规范检查           │  │
-│  │ • 火焰图     │  │ • 内存泄漏   │  │ • 安全漏洞扫描           │  │
-│  │ • eBPF 追踪  │  │ • 竞态条件   │  │ • 性能反模式识别         │  │
-│  └─────────────┘  └─────────────┘  └─────────────────────────┘  │
-│                                                                 │
-│  ┌─────────────┐  ┌─────────────┐  ┌─────────────────────────┐  │
-│  │ Kernel Agent│  │ Virt Agent  │  │   Cloud API Agent       │  │
-│  │             │  │             │  │                         │  │
-│  │ • 调度器调优 │  │ • KVM 优化   │  │ • ECS/EVS 操作          │  │
-│  │ • 内存管理   │  │ • DPDK 配置  │  │ • 监控数据查询           │  │
-│  │ • I/O 栈    │  │ • SR-IOV     │  │ • 日志服务集成           │  │
-│  └─────────────┘  └─────────────┘  └─────────────────────────┘  │
-│                                                                 │
-└─────────────────────────────────────────────────────────────────┘
+                    <h4 style="color: var(--accent-mint); margin-bottom: 16px;">📋 实战案例：KVM 网络优化</h4>
+                    <pre style="margin-bottom: 24px;"><code class="language-markdown">用户: 鲲鹏 920 + openEuler，virtio 网卡只能跑到 6Gbps，需要优化到 20Gbps+
 
-协作模式示例：
-1. 用户报告性能问题 → Orchestrator 分配给 Perf Agent
-2. Perf Agent 发现内核调度瓶颈 → 转发 Kernel Agent
-3. Kernel Agent 生成优化方案 → Code Review Agent 验证
-4. 所有结果汇总 → 生成综合报告</code></pre>
-                </div>
-            </div>
+## Claude Code 执行流程
 
-            <!-- Container Resource Agent -->
-            <div class="recommendation-card" style="margin-bottom: 48px;">
-                <div class="recommendation-header">
-                    <div class="rec-badge">容器资源</div>
-                    <h3>容器资源管理 Agent</h3>
-                    <p>基于 Kubernetes 和 cgroups v2 的智能资源管理</p>
-                </div>
-                <div class="scenario-prompt" style="text-align: left;">
-                    <h4 style="color: var(--accent-pink); margin-bottom: 16px;">📦 项目结构</h4>
-                    <pre style="margin-bottom: 24px;"><code>container-resource-agent/
-├── knowledge/          # 知识库
-│   ├── cgroups.md      # cgroups v1/v2 详解
-│   ├── qos.md          # K8s QoS 类别
-│   └── runtime.md      # 容器运行时配置
-├── diagnostic/         # 诊断引擎
-│   ├── analyzer.go     # 资源使用分析
-│   ├── detector.go     # OOM/争抢检测
-│   └── fragment.go     # 碎片分析
-├── advisor/            # 配置顾问
-│   ├── recommender.go  # 资源推荐
-│   ├── policies/       # 策略定义
-│   └── templates/      # K8s 资源模板
-├── remediation/        # 问题修复
-│   ├── java.go         # Java 应用优化
-│   ├── cpu.go          # CPU 任务调度
-│   └── isolation.go    # 多租户隔离
-├── monitoring/         # 监控采集
-│   ├── collector.go    # 指标采集
-│   ├── metrics.go      # Prometheus 指标
-│   └── alerts/         # 告警规则
-└── deploy/             # 部署文件
-    ├── agent.yaml      # DaemonSet
-    ├── rbac.yaml       # 权限配置
-    └── config.yaml     # Agent 配置</code></pre>
+### Step 1: Orchestrator 任务分解
+目标: 网络吞吐优化 6Gbps → 20Gbps
+平台: 鲲鹏 920 + openEuler
+类型: KVM 虚拟化网络
 
-                    <h4 style="color: var(--accent-mint); margin-bottom: 16px;">🚀 快速部署</h4>
-                    <pre style="margin-bottom: 24px;"><code class="language-bash"># 部署到 Kubernetes
-kubectl apply -f container-resource-agent/deploy/
+### Step 2: 并行诊断（3 个 Agent 同时工作）
 
-# 运行诊断
-kubectl exec -it container-resource-agent-xxxxx -- /app/diagnose --namespace=default
+[Perf Agent] 分析性能数据...
+→ virtio_net 处理占用 15% CPU
+→ 中断处理占用 8% CPU
+→ 热点: virtnet_send_command
 
-# 获取资源建议
-kubectl exec -it container-resource-agent-xxxxx -- /app/advise --pod=my-app
+[KVM Agent] 分析虚拟化配置...
+→ virtio 队列数: 1 (瓶颈!)
+→ vhost 线程: 未绑定 CPU
+→ RSS: 未启用
 
-# 应用 OOM 修复
-kubectl exec -it container-resource-agent-xxxxx -- /app/remediate --issue=oom</code></pre>
+[NUMA Agent] 分析 NUMA 亲和性...
+→ vCPU 分布在 Node 0
+→ 网卡在 Node 1
+→ 跨 NUMA 访问: 38% (性能损失!)
 
-                    <h4 style="color: var(--accent-lavender); margin-bottom: 16px;">💡 核心能力</h4>
-                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;">
-                        <div style="background: rgba(255, 183, 197, 0.1); padding: 12px; border-radius: 8px;">
-                            <strong style="color: var(--accent-pink);">诊断引擎</strong>
-                            <p style="margin: 8px 0 0; font-size: 13px;">OOM 预测、CPU 限流检测、资源争抢分析、碎片识别</p>
-                        </div>
-                        <div style="background: rgba(168, 230, 207, 0.1); padding: 12px; border-radius: 8px;">
-                            <strong style="color: var(--accent-mint);">配置顾问</strong>
-                            <p style="margin: 8px 0 0; font-size: 13px;">Request/Limit 推荐、QoS 优化、节点预留策略</p>
-                        </div>
-                        <div style="background: rgba(212, 184, 224, 0.1); padding: 12px; border-radius: 8px;">
-                            <strong style="color: var(--accent-lavender);">问题修复</strong>
-                            <p style="margin: 8px 0 0; font-size: 13px;">Java 堆配置、CPU 突发优化、多租户隔离加固</p>
-                        </div>
-                        <div style="background: rgba(168, 216, 234, 0.1); padding: 12px; border-radius: 8px;">
-                            <strong style="color: var(--accent-sky);">监控告警</strong>
-                            <p style="margin: 8px 0 0; font-size: 13px;">Prometheus 指标、PSI 压力、自定义告警规则</p>
-                        </div>
+### Step 3: 汇总诊断结果
+├── 瓶颈 1: virtio 单队列 (影响 40%)
+├── 瓶颈 2: 跨 NUMA 访问 (影响 30%)
+└── 瓶颈 3: vhost 线程竞争 (影响 15%)
+
+### Step 4: [Tuner Agent] 生成优化方案
+1. 启用 virtio 多队列 (8 队列)
+   &lt;driver name='vhost' queues='8'/&gt;
+2. vhost 线程绑定到独立 CPU
+   &lt;emulatorpin cpuset='2-3'/&gt;
+3. NUMA 亲和性优化
+   &lt;numatune&gt;&lt;memory mode='strict' nodeset='0'/&gt;&lt;/numatune&gt;
+
+### Step 5: [Test Agent] 生成验证脚本
+#!/bin/bash
+# 预期吞吐: > 20Gbps
+iperf3 -c server -t 60 -P 8
+
+### Step 6: [Report Agent] 生成最终报告
+原始吞吐: 6Gbps → 优化后: 25Gbps (预期)
+提升: 316%</code></pre>
+
+                    <h4 style="color: var(--accent-lavender); margin-bottom: 16px;">🔧 如何在 Claude Code 中实践</h4>
+                    <pre style="margin-bottom: 24px;"><code class="language-markdown"># 方法 1：明确指示多 Agent 协作
+
+你: 请同时启动以下分析：
+    1. [Perf Agent] 分析 CPU 热点
+    2. [KVM Agent] 分析 VM Exit 分布
+    3. [NUMA Agent] 分析 NUMA 访问模式
+    完成后汇总结果。
+
+# 方法 2：流水线模式
+
+你: 按 KVM 网络优化流程执行：
+    Step 1: [Perf] 采集性能数据
+    Step 2: [KVM] 分析虚拟化开销
+    Step 3: [Tuner] 生成优化方案
+    Step 4: [Test] 生成验证脚本
+
+# 方法 3：条件分支
+
+你: 首先做性能分析。
+    如果发现 CPU 限流 > 10%，启动调度器优化。
+    如果发现跨 NUMA > 20%，启动 NUMA 优化。
+    如果发现 VM Exit 频繁，启动 KVM 优化。</code></pre>
+
+                    <h4 style="color: var(--accent-peach); margin-bottom: 16px;">📚 完整文档</h4>
+                    <p style="margin-bottom: 16px;">详细的多 Agent 协作架构设计、协作协议、最佳实践，请查看：</p>
+                    <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+                        <a href="https://github.com/jiangbingo/ai-coding-guide/blob/main/docs/MULTI-AGENT-ARCHITECTURE.md" target="_blank" style="background: linear-gradient(135deg, var(--accent-pink), var(--accent-lavender)); color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600;">
+                            📖 多 Agent 架构完整指南
+                        </a>
+                        <a href="https://github.com/jiangbingo/ai-coding-guide/blob/main/skills/README.md" target="_blank" style="background: linear-gradient(135deg, var(--accent-mint), var(--accent-sky)); color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600;">
+                            🛠️ Skill 创建教程
+                        </a>
                     </div>
                 </div>
             </div>
