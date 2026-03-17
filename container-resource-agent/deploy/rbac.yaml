@@ -1,0 +1,120 @@
+# Container Resource Management Agent RBAC
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: container-resource-agent
+  namespace: kube-system
+  labels:
+    app: container-resource-agent
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: container-resource-agent
+  labels:
+    app: container-resource-agent
+rules:
+# Pods
+- apiGroups: [""]
+  resources:
+  - pods
+  - pods/status
+  verbs: ["get", "list", "watch"]
+# Namespaces
+- apiGroups: [""]
+  resources:
+  - namespaces
+  verbs: ["get", "list", "watch"]
+# Nodes
+- apiGroups: [""]
+  resources:
+  - nodes
+  - nodes/status
+  verbs: ["get", "list", "watch"]
+# Resource Quotas
+- apiGroups: [""]
+  resources:
+  - resourcequotas
+  - resourcequotas/status
+  verbs: ["get", "list", "watch"]
+# Limit Ranges
+- apiGroups: [""]
+  resources:
+  - limitranges
+  verbs: ["get", "list", "watch"]
+# Events (for logging remediation actions)
+- apiGroups: [""]
+  resources:
+  - events
+  verbs: ["create", "patch"]
+# Deployments (for remediation)
+- apiGroups: ["apps"]
+  resources:
+  - deployments
+  - deployments/scale
+  - statefulsets
+  - statefulsets/scale
+  - daemonsets
+  verbs: ["get", "list", "watch", "update", "patch"]
+# Metrics
+- apiGroups: ["metrics.k8s.io"]
+  resources:
+  - pods
+  - nodes
+  verbs: ["get", "list"]
+# Custom Resource Definitions (if using custom resources)
+- apiGroups: ["apiextensions.k8s.io"]
+  resources:
+  - customresourcedefinitions
+  verbs: ["get", "list", "watch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: container-resource-agent
+  labels:
+    app: container-resource-agent
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: container-resource-agent
+subjects:
+- kind: ServiceAccount
+  name: container-resource-agent
+  namespace: kube-system
+---
+# Role for namespace-level operations
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: container-resource-agent
+  namespace: kube-system
+  labels:
+    app: container-resource-agent
+rules:
+# ConfigMaps
+- apiGroups: [""]
+  resources:
+  - configmaps
+  verbs: ["get", "list", "watch", "create", "update", "patch"]
+# Secrets (for reading cloud credentials if needed)
+- apiGroups: [""]
+  resources:
+  - secrets
+  verbs: ["get", "list"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: container-resource-agent
+  namespace: kube-system
+  labels:
+    app: container-resource-agent
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: container-resource-agent
+subjects:
+- kind: ServiceAccount
+  name: container-resource-agent
+  namespace: kube-system

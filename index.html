@@ -1727,6 +1727,26 @@ AI: [自动激活 kvm-virt-optimization]
                         </ul>
                     </div>
                 </div>
+
+                <div class="tool-card featured">
+                    <div class="featured-badge">本项目</div>
+                    <div class="tool-icon">📦</div>
+                    <h3 class="tool-name">container-resource-agent</h3>
+                    <p class="tool-desc">容器资源管理 Agent</p>
+                    <div class="tool-use-case">
+                        <strong>触发条件：</strong>
+                        <ul>
+                            <li>OOM、内存泄漏、CPU 限流</li>
+                            <li>Kubernetes、cgroups、资源配额</li>
+                        </ul>
+                        <strong>能力：</strong>
+                        <ul>
+                            <li>资源诊断和推荐</li>
+                            <li>Java/CPU 应用优化</li>
+                            <li>多租户隔离加固</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
 
             <!-- Agent Architecture -->
@@ -1765,6 +1785,76 @@ AI: [自动激活 kvm-virt-optimization]
 2. Perf Agent 发现内核调度瓶颈 → 转发 Kernel Agent
 3. Kernel Agent 生成优化方案 → Code Review Agent 验证
 4. 所有结果汇总 → 生成综合报告</code></pre>
+                </div>
+            </div>
+
+            <!-- Container Resource Agent -->
+            <div class="recommendation-card" style="margin-bottom: 48px;">
+                <div class="recommendation-header">
+                    <div class="rec-badge">容器资源</div>
+                    <h3>容器资源管理 Agent</h3>
+                    <p>基于 Kubernetes 和 cgroups v2 的智能资源管理</p>
+                </div>
+                <div class="scenario-prompt" style="text-align: left;">
+                    <h4 style="color: var(--accent-pink); margin-bottom: 16px;">📦 项目结构</h4>
+                    <pre style="margin-bottom: 24px;"><code>container-resource-agent/
+├── knowledge/          # 知识库
+│   ├── cgroups.md      # cgroups v1/v2 详解
+│   ├── qos.md          # K8s QoS 类别
+│   └── runtime.md      # 容器运行时配置
+├── diagnostic/         # 诊断引擎
+│   ├── analyzer.go     # 资源使用分析
+│   ├── detector.go     # OOM/争抢检测
+│   └── fragment.go     # 碎片分析
+├── advisor/            # 配置顾问
+│   ├── recommender.go  # 资源推荐
+│   ├── policies/       # 策略定义
+│   └── templates/      # K8s 资源模板
+├── remediation/        # 问题修复
+│   ├── java.go         # Java 应用优化
+│   ├── cpu.go          # CPU 任务调度
+│   └── isolation.go    # 多租户隔离
+├── monitoring/         # 监控采集
+│   ├── collector.go    # 指标采集
+│   ├── metrics.go      # Prometheus 指标
+│   └── alerts/         # 告警规则
+└── deploy/             # 部署文件
+    ├── agent.yaml      # DaemonSet
+    ├── rbac.yaml       # 权限配置
+    └── config.yaml     # Agent 配置</code></pre>
+
+                    <h4 style="color: var(--accent-mint); margin-bottom: 16px;">🚀 快速部署</h4>
+                    <pre style="margin-bottom: 24px;"><code class="language-bash"># 部署到 Kubernetes
+kubectl apply -f container-resource-agent/deploy/
+
+# 运行诊断
+kubectl exec -it container-resource-agent-xxxxx -- /app/diagnose --namespace=default
+
+# 获取资源建议
+kubectl exec -it container-resource-agent-xxxxx -- /app/advise --pod=my-app
+
+# 应用 OOM 修复
+kubectl exec -it container-resource-agent-xxxxx -- /app/remediate --issue=oom</code></pre>
+
+                    <h4 style="color: var(--accent-lavender); margin-bottom: 16px;">💡 核心能力</h4>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;">
+                        <div style="background: rgba(255, 183, 197, 0.1); padding: 12px; border-radius: 8px;">
+                            <strong style="color: var(--accent-pink);">诊断引擎</strong>
+                            <p style="margin: 8px 0 0; font-size: 13px;">OOM 预测、CPU 限流检测、资源争抢分析、碎片识别</p>
+                        </div>
+                        <div style="background: rgba(168, 230, 207, 0.1); padding: 12px; border-radius: 8px;">
+                            <strong style="color: var(--accent-mint);">配置顾问</strong>
+                            <p style="margin: 8px 0 0; font-size: 13px;">Request/Limit 推荐、QoS 优化、节点预留策略</p>
+                        </div>
+                        <div style="background: rgba(212, 184, 224, 0.1); padding: 12px; border-radius: 8px;">
+                            <strong style="color: var(--accent-lavender);">问题修复</strong>
+                            <p style="margin: 8px 0 0; font-size: 13px;">Java 堆配置、CPU 突发优化、多租户隔离加固</p>
+                        </div>
+                        <div style="background: rgba(168, 216, 234, 0.1); padding: 12px; border-radius: 8px;">
+                            <strong style="color: var(--accent-sky);">监控告警</strong>
+                            <p style="margin: 8px 0 0; font-size: 13px;">Prometheus 指标、PSI 压力、自定义告警规则</p>
+                        </div>
+                    </div>
                 </div>
             </div>
 

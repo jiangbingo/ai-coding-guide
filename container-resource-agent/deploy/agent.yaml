@@ -1,0 +1,130 @@
+# Container Resource Management Agent Deployment
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: container-resource-agent
+  namespace: kube-system
+  labels:
+    app: container-resource-agent
+    version: v1.0.0
+spec:
+  selector:
+    matchLabels:
+      app: container-resource-agent
+  template:
+    metadata:
+      labels:
+        app: container-resource-agent
+        version: v1.0.0
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8080"
+        prometheus.io/path: "/metrics"
+    spec:
+      serviceAccountName: container-resource-agent
+      hostPID: true
+      hostNetwork: true
+      dnsPolicy: ClusterFirstWithHostNet
+      containers:
+      - name: agent
+        image: container-resource-agent:v1.0.0
+        imagePullPolicy: IfNotPresent
+        args:
+        - --config=/config/config.yaml
+        - --v=2
+        ports:
+        - name: metrics
+          containerPort: 8080
+          protocol: TCP
+        - name: health
+          containerPort: 8081
+          protocol: TCP
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 500m
+            memory: 512Mi
+        volumeMounts:
+        - name: config
+          mountPath: /config
+          readOnly: true
+        - name: cgroup
+          mountPath: /sys/fs/cgroup
+          readOnly: true
+        - name: proc
+          mountPath: /host/proc
+          readOnly: true
+        - name: var-run
+          mountPath: /var/run
+          readOnly: true
+        - name: containerd
+          mountPath: /run/containerd
+          readOnly: true
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: health
+          initialDelaySeconds: 10
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /readyz
+            port: health
+          initialDelaySeconds: 5
+          periodSeconds: 5
+        securityContext:
+          readOnlyRootFilesystem: true
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+      volumes:
+      - name: config
+        configMap:
+          name: container-resource-agent-config
+      - name: cgroup
+        hostPath:
+          path: /sys/fs/cgroup
+          type: Directory
+      - name: proc
+        hostPath:
+          path: /proc
+          type: Directory
+      - name: var-run
+        hostPath:
+          path: /var/run
+          type: Directory
+      - name: containerd
+        hostPath:
+          path: /run/containerd
+          type: Directory
+      nodeSelector:
+        kubernetes.io/os: linux
+      tolerations:
+      - key: node-role.kubernetes.io/master
+        effect: NoSchedule
+      - key: node-role.kubernetes.io/control-plane
+        effect: NoSchedule
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: container-resource-agent
+  namespace: kube-system
+  labels:
+    app: container-resource-agent
+spec:
+  type: ClusterIP
+  ports:
+  - name: metrics
+    port: 8080
+    targetPort: metrics
+    protocol: TCP
+  - name: health
+    port: 8081
+    targetPort: health
+    protocol: TCP
+  selector:
+    app: container-resource-agent

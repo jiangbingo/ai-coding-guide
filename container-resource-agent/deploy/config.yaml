@@ -1,0 +1,180 @@
+# Container Resource Management Agent Configuration
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: container-resource-agent-config
+  namespace: kube-system
+  labels:
+    app: container-resource-agent
+data:
+  config.yaml: |
+    # Agent 基础配置
+    agent:
+      name: container-resource-agent
+      version: v1.0.0
+      logLevel: info
+      metricsPort: 8080
+      healthPort: 8081
+
+    # 监控配置
+    monitoring:
+      enabled: true
+      interval: 30s
+      cgroupPath: /sys/fs/cgroup
+      procPath: /host/proc
+
+      # 指标采集
+      collectors:
+        cpu:
+          enabled: true
+          interval: 10s
+        memory:
+          enabled: true
+          interval: 10s
+        io:
+          enabled: true
+          interval: 30s
+        network:
+          enabled: true
+          interval: 30s
+
+    # 诊断配置
+    diagnostic:
+      enabled: true
+      interval: 60s
+
+      # OOM 检测
+      oomDetection:
+        enabled: true
+        threshold: 0.9  # 内存使用 > 90% 触发警告
+        window: 5m
+
+      # CPU 限流检测
+      cpuThrottlingDetection:
+        enabled: true
+        threshold: 0.1  # 限流比例 > 10% 触发警告
+        window: 5m
+
+      # 资源争抢检测
+      contentionDetection:
+        enabled: true
+        cpuThreshold: 0.8
+        memoryThreshold: 0.8
+        window: 10m
+
+      # 碎片分析
+      fragmentationAnalysis:
+        enabled: true
+        interval: 5m
+
+    # 配置顾问
+    advisor:
+      enabled: true
+
+      # 资源推荐
+      recommendation:
+        enabled: true
+        learningPeriod: 7d
+        minSamples: 100
+        confidenceLevel: 0.95
+
+      # 自动调优
+      autoTuning:
+        enabled: false  # 默认关闭，建议先在测试环境验证
+        dryRun: true    # 只生成建议，不实际执行
+        approvalRequired: true
+
+    # 问题修复
+    remediation:
+      enabled: true
+
+      # Java 应用优化
+      java:
+        enabled: true
+        heapRatio: 0.75  # 堆内存占容器内存比例
+        gcPolicy: auto   # G1GC, CMS, ZGC, auto
+
+      # CPU 密集型任务
+      cpu:
+        enabled: true
+        burstEnabled: true
+        burstWindow: 100ms
+        burstThreshold: 2.0
+
+      # 多租户隔离
+      isolation:
+        enabled: true
+        enforceQuotas: true
+        strictMode: false
+
+    # 告警配置
+    alerts:
+      enabled: true
+
+      # 告警规则
+      rules:
+        - name: memory-pressure-high
+          expr: container_memory_pressure > 0.8
+          for: 5m
+          severity: warning
+          message: "Memory pressure is high on {{ $labels.node }}"
+
+        - name: cpu-throttling-high
+          expr: rate(container_cpu_cfs_throttled_periods_total[5m]) > 0.1
+          for: 5m
+          severity: warning
+          message: "CPU throttling is high for {{ $labels.pod }}"
+
+        - name: oom-risk
+          expr: container_memory_working_set_bytes / container_spec_memory_limit_bytes > 0.9
+          for: 2m
+          severity: critical
+          message: "OOM risk detected for {{ $labels.pod }}"
+
+        - name: resource-contention
+          expr: node_cpu_pressure > 0.5
+          for: 10m
+          severity: warning
+          message: "CPU contention detected on {{ $labels.node }}"
+
+      # 通知配置
+      notifications:
+        enabled: true
+        # Webhook 配置
+        webhook:
+          enabled: false
+          url: ""
+        # Slack 配置
+        slack:
+          enabled: false
+          channel: ""
+        # 邮件配置
+        email:
+          enabled: false
+          smtpServer: ""
+          recipients: []
+
+    # 节点配置
+    node:
+      # 节点预留资源
+      systemReserved:
+        cpu: 500m
+        memory: 1Gi
+      kubeReserved:
+        cpu: 500m
+        memory: 1Gi
+      evictionHard:
+        memory.available: "500Mi"
+        nodefs.available: "10%"
+
+    # 日志配置
+    logging:
+      format: json
+      output: stdout
+      level: info
+
+    # 安全配置
+    security:
+      readOnlyRootFilesystem: true
+      runAsNonRoot: true
+      allowPrivilegeEscalation: false
