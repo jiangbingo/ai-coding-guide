@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="给资深C/云计算开发者的AI代码入门指南 - 从0到1，用AI加速你的开发">
-    <meta name="keywords" content="AI编程, Claude Code, AI工具, 代码生成, C语言, 云计算">
-    <title>AI代码入门指南 | 给资深开发者的实用手册</title>
+    <meta name="description" content="给 bingirl 的 AI 辅助编程指南 - 华为云杭州团队云计算内核开发专用">
+    <meta name="keywords" content="AI编程, Claude Code, 华为云, 内核开发, 虚拟化, KVM, eBPF, 鲲鹏">
+    <title>AI 辅助编程指南 | 给 bingirl 的云计算内核开发手册</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -35,6 +35,7 @@
                 <a href="#tools">工具选型</a>
                 <a href="#workflow">实战流程</a>
                 <a href="#scenarios">场景示例</a>
+                <a href="#skills">Agent Skills</a>
                 <a href="#resources">资源</a>
             </div>
             <button class="nav-toggle" aria-label="菜单">
@@ -50,15 +51,15 @@
         <div class="hero-content">
             <div class="hero-badge">
                 <span class="badge-icon">⚡</span>
-                <span>写给 10+ 年经验的开发者</span>
+                <span>给 bingirl & 华为云杭州团队</span>
             </div>
             <h1 class="hero-title">
-                <span class="title-line">给资深开发者的</span>
+                <span class="title-line">AI 辅助</span>
                 <span class="title-highlight typewriter" id="typewriter"></span>
             </h1>
             <p class="hero-subtitle">
-                从 0 到 1，用 AI 加速你的 C/云计算开发。<br>
-                无需 AI 背景，直接上手实战。
+                云计算内核开发 × AI 辅助编程<br>
+                从 KVM 虚拟化到 eBPF 性能分析，AI 让开发更高效。
             </p>
             <div class="hero-actions">
                 <a href="#workflow" class="btn btn-primary">
@@ -784,6 +785,946 @@ AI: 让我看看你的代码... 问题出在头文件。
                         </div>
                     </div>
                 </div>
+
+                <!-- Scenario 6: 华为云内核调度 -->
+                <div class="scenario-item">
+                    <button class="scenario-header">
+                        <span class="scenario-icon">🖥️</span>
+                        <div class="scenario-title">
+                            <h3>华为云内核调度优化</h3>
+                            <p>CPU 亲和性、调度器参数、实时性调优</p>
+                        </div>
+                        <span class="scenario-toggle">+</span>
+                    </button>
+                    <div class="scenario-content">
+                        <div class="scenario-case">
+                            <h4>场景描述</h4>
+                            <p>华为云 ECS 实例运行高负载计算任务，需要优化内核调度参数以减少延迟抖动，提升实时性能。</p>
+                        </div>
+                        <div class="scenario-prompt">
+                            <h4>提示词模板</h4>
+                            <button class="copy-btn" data-code="scenario6">复制</button>
+                            <pre><code class="language-text">请帮我优化华为云 ECS 的内核调度参数：
+
+环境信息：
+- 华为云 ECS（鲲鹏 920 / x86 可选）
+- OS：openEuler 22.03 / CentOS 7.9
+- 内核：5.10+ / 4.19 LTS
+- 工作负载：实时数据处理的计算密集型任务
+
+当前问题：
+- CPU 调度延迟抖动较大（p99 > 500us）
+- 多核负载不均衡
+- 中断处理占用过多 CPU 时间
+
+优化目标：
+- 降低调度延迟和抖动
+- 提高 CPU 缓存命中率
+- 优化 NUMA 亲和性
+- 隔离关键业务 CPU
+
+请提供：
+1. 内核启动参数调优建议（isolcpus、nohz_full 等）
+2. sysctl 调度器参数配置
+3. IRQ 亲和性配置脚本
+4. cgroups v2 资源隔离方案
+5. 验证和监控方法</code></pre>
+                        </div>
+                        <div class="scenario-tips">
+                            <h4>常用调优参数</h4>
+                            <ul>
+                                <li>isolcpus=1-3 隔离 CPU 核心</li>
+                                <li>nohz_full=1-3 禁用时钟中断</li>
+                                <li>rcu_nocbs=1-3 RCU 回调卸载</li>
+                                <li>kernel.sched_min_granularity_ns 最小调度粒度</li>
+                                <li>kernel.sched_wakeup_granularity_ns 唤醒粒度</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Scenario 7: 虚拟化性能调优 -->
+                <div class="scenario-item">
+                    <button class="scenario-header">
+                        <span class="scenario-icon">📦</span>
+                        <div class="scenario-title">
+                            <h3>虚拟化性能调优</h3>
+                            <p>KVM/QEMU 优化、virtio、内存管理</p>
+                        </div>
+                        <span class="scenario-toggle">+</span>
+                    </button>
+                    <div class="scenario-content">
+                        <div class="scenario-case">
+                            <h4>场景描述</h4>
+                            <p>华为云上的 KVM 虚拟机网络 I/O 性能不达标，需要调优 virtio 和后端驱动。</p>
+                        </div>
+                        <div class="scenario-prompt">
+                            <h4>提示词模板</h4>
+                            <button class="copy-btn" data-code="scenario7">复制</button>
+                            <pre><code class="language-text">请帮我优化 KVM 虚拟机的网络 I/O 性能：
+
+环境信息：
+- 宿主机：华为云物理机，openEuler 22.03
+- 虚拟机：CentOS 7.9，virtio-net 网卡
+- 业务：高吞吐量网络转发（10Gbps+）
+- CPU：支持 DPDK 和 vhost-user
+
+当前问题：
+- 网络吞吐量只能达到 6Gbps
+- CPU 在软中断上消耗过高（30%+）
+- P99 延迟不稳定
+
+请提供优化方案：
+1. virtio-net 参数调优（多队列、合并缓冲区）
+2. vhost-net vs vhost-user 选择建议
+3. CPU 亲和性绑定（vCPU 和 vhost 线程）
+4. 内存大页配置（HugePages）
+5. 中断合并和 RSS 配置
+6. 性能测试和验证方法</code></pre>
+                        </div>
+                        <div class="scenario-tips">
+                            <h4>关键调优点</h4>
+                            <ul>
+                                <li>virtio-net 多队列：MQ=on, vectors=多队列数*2+2</li>
+                                <li>vhost 后端线程 CPU 亲和性绑定</li>
+                                <li>启用 RSS 和中断合并减少 CPU 开销</li>
+                                <li>大页内存减少 TLB miss</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Scenario 8: 容器资源限制 -->
+                <div class="scenario-item">
+                    <button class="scenario-header">
+                        <span class="scenario-icon">🐳</span>
+                        <div class="scenario-title">
+                            <h3>容器资源限制与隔离</h3>
+                            <p>cgroups v2、CPU quota、内存 OOM</p>
+                        </div>
+                        <span class="scenario-toggle">+</span>
+                    </button>
+                    <div class="scenario-content">
+                        <div class="scenario-case">
+                            <h4>场景描述</h4>
+                            <p>Kubernetes 集群中某容器频繁 OOM，或 CPU 资源被其他容器抢占导致性能抖动。</p>
+                        </div>
+                        <div class="scenario-prompt">
+                            <h4>提示词模板</h4>
+                            <button class="copy-btn" data-code="scenario8">复制</button>
+                            <pre><code class="language-text">请帮我分析和解决容器资源问题：
+
+环境信息：
+- Kubernetes 1.25+
+- 容器运行时：containerd / docker
+- 内核：支持 cgroups v2
+- 节点：华为云 ECS（8C32G）
+
+问题描述：
+- 容器内存使用接近 limit 但未 OOM，性能下降
+- CPU 使用率波动大，疑似被其他容器抢占
+- 需要精确控制资源分配
+
+请提供：
+1. cgroups v2 资源限制配置方法
+2. CPU quota 和 shares 的正确使用
+3. 内存 OOM 评分和优先级设置
+4. 如何分析和排查资源争抢问题
+5. Prometheus 监控指标推荐
+6. 资源 Request/Limit 最佳实践</code></pre>
+                        </div>
+                        <div class="scenario-tips">
+                            <h4>常用命令</h4>
+                            <ul>
+                                <li>cat /sys/fs/cgroup/<cgroup>/memory.max</li>
+                                <li>cat /sys/fs/cgroup/<cgroup>/cpu.max</li>
+                                <li>systemd-run --scope -p MemoryMax=1G</li>
+                                <li>kubectl describe pod <pod> 查看资源状态</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Scenario 9: 内核模块开发 -->
+                <div class="scenario-item">
+                    <button class="scenario-header">
+                        <span class="scenario-icon">🔧</span>
+                        <div class="scenario-title">
+                            <h3>内核模块开发</h3>
+                            <p>驱动开发、内核态编程、调试技巧</p>
+                        </div>
+                        <span class="scenario-toggle">+</span>
+                    </button>
+                    <div class="scenario-content">
+                        <div class="scenario-case">
+                            <h4>场景描述</h4>
+                            <p>需要开发一个内核模块实现自定义的系统调用拦截或设备驱动。</p>
+                        </div>
+                        <div class="scenario-prompt">
+                            <h4>提示词模板</h4>
+                            <button class="copy-btn" data-code="scenario9">复制</button>
+                            <pre><code class="language-text">请帮我开发一个 Linux 内核模块：
+
+需求描述：
+- 功能：实现一个字符设备驱动，支持 read/write/ioctl
+- 平台：openEuler / CentOS，内核 4.19+
+- 需要支持多个进程并发访问
+
+技术要求：
+1. 使用内核互斥锁保护共享数据
+2. 实现 poll/waitqueue 支持阻塞读
+3. 使用 kmalloc/vmalloc 管理内核内存
+4. 支持 ioctl 进行配置控制
+5. 提供 /proc 接口查看状态
+
+请提供：
+1. 完整的内核模块代码框架
+2. Makefile 和 Kconfig 配置
+3. 用户态测试程序
+4. 常见内核编程注意事项
+5. 调试方法（dmesg、ftrace、kgdb）</code></pre>
+                        </div>
+                        <div class="scenario-tips">
+                            <h4>内核开发注意事项</h4>
+                            <ul>
+                                <li>禁止长时间持有自旋锁</li>
+                                <li>原子上下文不能睡眠</li>
+                                <li>使用 copy_to_user/copy_from_user 访问用户空间</li>
+                                <li>正确处理错误码（-EFAULT, -EINVAL 等）</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Scenario 10: 网络协议栈优化 -->
+                <div class="scenario-item">
+                    <button class="scenario-header">
+                        <span class="scenario-icon">🌐</span>
+                        <div class="scenario-title">
+                            <h3>网络协议栈优化</h3>
+                            <p>内核网络参数、DPDK、XDP 加速</p>
+                        </div>
+                        <span class="scenario-toggle">+</span>
+                    </button>
+                    <div class="scenario-content">
+                        <div class="scenario-case">
+                            <h4>场景描述</h4>
+                            <p>高并发网络服务器需要优化 Linux 网络协议栈，提升吞吐量和降低延迟。</p>
+                        </div>
+                        <div class="scenario-prompt">
+                            <h4>提示词模板</h4>
+                            <button class="copy-btn" data-code="scenario10">复制</button>
+                            <pre><code class="language-text">请帮我优化 Linux 网络协议栈性能：
+
+场景信息：
+- 服务器：华为云 ECS，25G 网卡
+- 业务：高并发 TCP 服务（10万+ 连接）
+- 目标：降低延迟，提高吞吐量
+
+当前配置：
+[sysctl -a | grep net 的关键参数]
+
+请提供优化方案：
+1. 内核网络参数调优（sysctl.conf）
+   - TCP 缓冲区大小
+   - 连接队列长度
+   - TIME_WAIT 处理
+   - 拥塞控制算法选择
+
+2. 网卡多队列和 RSS 配置
+
+3. 是否需要 XDP/DPDK 加速？适用场景？
+
+4. 监控和问题排查工具
+   - ss、netstat、ethtool
+   - perf、bcc 工具
+
+5. 性能测试方法（iperf3、wrk）</code></pre>
+                        </div>
+                        <div class="scenario-tips">
+                            <h4>关键网络参数</h4>
+                            <ul>
+                                <li>net.core.somaxconn - listen 队列最大长度</li>
+                                <li>net.ipv4.tcp_tw_reuse - TIME_WAIT 复用</li>
+                                <li>net.ipv4.tcp_congestion_control - 拥塞控制（BBR/CUBIC）</li>
+                                <li>net.core.rmem_max/wmem_max - 缓冲区上限</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Scenario 11: 存储子系统调优 -->
+                <div class="scenario-item">
+                    <button class="scenario-header">
+                        <span class="scenario-icon">💾</span>
+                        <div class="scenario-title">
+                            <h3>存储子系统调优</h3>
+                            <p>I/O 调度器、块设备、文件系统优化</p>
+                        </div>
+                        <span class="scenario-toggle">+</span>
+                    </button>
+                    <div class="scenario-content">
+                        <div class="scenario-case">
+                            <h4>场景描述</h4>
+                            <p>数据库服务器 I/O 延迟高，需要优化存储子系统配置。</p>
+                        </div>
+                        <div class="scenario-prompt">
+                            <h4>提示词模板</h4>
+                            <button class="copy-btn" data-code="scenario11">复制</button>
+                            <pre><code class="language-text">请帮我优化存储 I/O 性能：
+
+环境信息：
+- 存储：华为云 EVS（SSD / 高IO）
+- 文件系统：ext4 / xfs
+- 业务：MySQL / PostgreSQL 数据库
+- 问题：随机读写延迟高，IOPS 上不去
+
+当前配置：
+- I/O 调度器：[cat /sys/block/sda/queue/scheduler]
+- 文件系统挂载参数：[mount | grep data]
+
+请提供优化方案：
+1. I/O 调度器选择（none/mq-deadline/kyber/bfq）
+2. 块设备队列深度调整
+3. 文件系统挂载参数优化
+4. 预读和缓存配置
+5. NUMA 相关的存储优化
+6. 性能测试和验证方法（fio 配置）</code></pre>
+                        </div>
+                        <div class="scenario-tips">
+                            <h4>I/O 调度器选择</h4>
+                            <ul>
+                                <li>none/noop - NVMe SSD 推荐</li>
+                                <li>mq-deadline - 通用场景，延迟可控</li>
+                                <li>bfq - 桌面/低优先级后台任务</li>
+                                <li>kyber - 低延迟块设备</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Scenario 12: 性能剖析与火焰图 -->
+                <div class="scenario-item">
+                    <button class="scenario-header">
+                        <span class="scenario-icon">🔥</span>
+                        <div class="scenario-title">
+                            <h3>性能剖析与火焰图</h3>
+                            <p>perf、eBPF、BCC 工具使用</p>
+                        </div>
+                        <span class="scenario-toggle">+</span>
+                    </button>
+                    <div class="scenario-content">
+                        <div class="scenario-case">
+                            <h4>场景描述</h4>
+                            <p>生产环境性能瓶颈分析，需要使用性能剖析工具定位热点。</p>
+                        </div>
+                        <div class="scenario-prompt">
+                            <h4>提示词模板</h4>
+                            <button class="copy-btn" data-code="scenario12">复制</button>
+                            <pre><code class="language-text">请帮我分析程序性能瓶颈：
+
+程序信息：
+- 语言：C/C++
+- 场景：CPU 密集型计算 / I/O 密集型服务
+- 问题：性能不达标，需要定位瓶颈
+
+已收集的数据：
+- perf record -g -p <pid> 采样数据
+- [或者提供 perf report 输出]
+
+请帮我：
+1. 分析 perf 报告，找出热点函数
+2. 生成火焰图的命令和方法
+3. 使用 BCC 工具进一步分析
+   - profile: CPU 采样
+   - offcputime: 休眠时间分析
+   - biolatency: 块 I/O 延迟
+   - tcpretrans: TCP 重传
+4. 常见性能反模式识别
+5. 优化建议</code></pre>
+                        </div>
+                        <div class="scenario-tips">
+                            <h4>性能分析工具清单</h4>
+                            <ul>
+                                <li>perf - Linux 性能分析神器</li>
+                                <li>FlameGraph - 火焰图可视化</li>
+                                <li>BCC/eBPF - 内核级追踪</li>
+                                <li>strace - 系统调用追踪</li>
+                                <li>valgrind - 内存和缓存分析</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="section skills">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">// 05. Agent Skills</span>
+                <h2 class="section-title">Claude Code Skills 指南</h2>
+                <p class="section-desc">
+                    Skills 是 Claude Code 的扩展能力，让 AI 掌握特定领域的专业知识和工作流程。
+                    掌握 Skills，让你的开发效率倍增。
+                </p>
+            </div>
+
+            <!-- What are Skills -->
+            <div class="recommendation-card" style="margin-bottom: 48px;">
+                <div class="recommendation-header">
+                    <div class="rec-badge">核心概念</div>
+                    <h3>什么是 Agent Skills？</h3>
+                    <p>Skill = 领域知识 + 工作流程 + 最佳实践</p>
+                </div>
+                <div class="recommendation-features">
+                    <div class="feature">
+                        <span class="feature-icon">📚</span>
+                        <div class="feature-content">
+                            <strong>领域知识库</strong>
+                            <p>预置的专业知识，如内核开发规范、云计算最佳实践</p>
+                        </div>
+                    </div>
+                    <div class="feature">
+                        <span class="feature-icon">🔄</span>
+                        <div class="feature-content">
+                            <strong>工作流程模板</strong>
+                            <p>标准化的任务执行流程，确保质量和一致性</p>
+                        </div>
+                    </div>
+                    <div class="feature">
+                        <span class="feature-icon">⚡</span>
+                        <div class="feature-content">
+                            <strong>自动化触发</strong>
+                            <p>检测到相关任务时自动激活，无需手动调用</p>
+                        </div>
+                    </div>
+                    <div class="feature">
+                        <span class="feature-icon">🎯</span>
+                        <div class="feature-content">
+                            <strong>上下文感知</strong>
+                            <p>理解项目背景，提供精准的建议和代码</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Skills Categories -->
+            <h3 class="table-title" style="margin-bottom: 24px;">云计算开发者必备 Skills</h3>
+
+            <div class="tools-grid" style="margin-bottom: 48px;">
+                <!-- C/C++ Skills -->
+                <div class="tool-card featured">
+                    <div class="featured-badge">核心</div>
+                    <div class="tool-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="16 18 22 12 16 6"></polyline>
+                            <polyline points="8 6 2 12 8 18"></polyline>
+                        </svg>
+                    </div>
+                    <h3 class="tool-name">C/C++ 开发</h3>
+                    <p class="tool-desc">内存安全、性能优化、并发编程</p>
+                    <div class="tool-examples">
+                        <span class="example-tag">cpp-coding-standards</span>
+                        <span class="example-tag">cpp-testing</span>
+                    </div>
+                    <div class="tool-use-case">
+                        <strong>适用场景：</strong>
+                        <ul>
+                            <li>内核模块开发</li>
+                            <li>高性能服务端编程</li>
+                            <li>内存泄漏排查</li>
+                            <li>并发 bug 诊断</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Linux Kernel Skills -->
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="8" x2="12" y2="12"></line>
+                            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                        </svg>
+                    </div>
+                    <h3 class="tool-name">Linux 内核</h3>
+                    <p class="tool-desc">驱动开发、内核调优、性能剖析</p>
+                    <div class="tool-examples">
+                        <span class="example-tag">golang-patterns</span>
+                        <span class="example-tag">systemd</span>
+                    </div>
+                    <div class="tool-use-case">
+                        <strong>适用场景：</strong>
+                        <ul>
+                            <li>调度器参数调优</li>
+                            <li>内核模块开发</li>
+                            <li>eBPF/BCC 工具使用</li>
+                            <li>性能问题诊断</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Docker/K8s Skills -->
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                        </svg>
+                    </div>
+                    <h3 class="tool-name">容器 & K8s</h3>
+                    <p class="tool-desc">Docker、Kubernetes、云原生</p>
+                    <div class="tool-examples">
+                        <span class="example-tag">docker-patterns</span>
+                        <span class="example-tag">deployment-patterns</span>
+                    </div>
+                    <div class="tool-use-case">
+                        <strong>适用场景：</strong>
+                        <ul>
+                            <li>容器镜像优化</li>
+                            <li>K8s 部署配置</li>
+                            <li>资源限制调优</li>
+                            <li>CI/CD 流水线</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Performance Skills -->
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="tool-name">性能优化</h3>
+                    <p class="tool-desc">性能剖析、火焰图、调优建议</p>
+                    <div class="tool-examples">
+                        <span class="example-tag">postgres-patterns</span>
+                        <span class="example-tag">clickhouse-io</span>
+                    </div>
+                    <div class="tool-use-case">
+                        <strong>适用场景：</strong>
+                        <ul>
+                            <li>CPU 热点分析</li>
+                            <li>内存泄漏排查</li>
+                            <li>I/O 性能调优</li>
+                            <li>数据库优化</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- How to Use Skills -->
+            <div class="comparison-table-wrapper" style="margin-bottom: 48px;">
+                <h3 class="table-title">如何使用 Skills</h3>
+                <div class="workflow-steps" style="display: block;">
+                    <div class="step" style="margin-bottom: 24px;">
+                        <div class="step-number">01</div>
+                        <div class="step-content">
+                            <h3 class="step-title">查看可用 Skills</h3>
+                            <p class="step-desc">在 Claude Code 中查看已安装的 Skills 列表</p>
+                            <pre><code class="language-bash"># 在 Claude Code 中输入
+/skills
+
+# 或查看特定 skill 的帮助
+/skill-creator --help</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="step" style="margin-bottom: 24px;">
+                        <div class="step-number">02</div>
+                        <div class="step-content">
+                            <h3 class="step-title">安装新 Skill</h3>
+                            <p class="step-desc">从社区或官方仓库安装 Skills</p>
+                            <pre><code class="language-bash"># 安装官方 skill
+/skill-install cpp-coding-standards
+
+# 安装社区 skill
+/skill-install github.com/user/kernel-debug-skill</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="step" style="margin-bottom: 24px;">
+                        <div class="step-number">03</div>
+                        <div class="step-content">
+                            <h3 class="step-title">触发 Skill</h3>
+                            <p class="step-desc">Skills 会在检测到相关任务时自动激活</p>
+                            <pre><code class="language-text"># 自动触发示例
+你: "帮我优化这个 C 函数的性能"
+# Claude 自动激活 cpp-coding-standards skill
+
+# 手动调用
+你: "/tdd 实现一个线程安全的队列"
+# 强制使用 TDD 工作流</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <div class="step-number">04</div>
+                        <div class="step-content">
+                            <h3 class="step-title">创建自定义 Skill</h3>
+                            <p class="step-desc">为团队创建专属的 Skills</p>
+                            <pre><code class="language-bash"># 创建新 skill
+/skill-creator
+
+# Skill 文件结构
+~/.claude/skills/
+├── my-kernel-skill/
+│   ├── SKILL.md      # Skill 定义
+│   ├── knowledge/    # 知识库
+│   └── templates/    # 模板文件</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cloud-specific Skills Guide -->
+            <div class="warning-box" style="margin-bottom: 32px;">
+                <span class="warning-icon">☁️</span>
+                <div>
+                    <strong>华为云计算内核调度 Skills 推荐</strong>
+                    <p>虽然没有华为云官方的 Skill，但以下 Skills 对云计算内核开发非常有帮助：</p>
+                </div>
+            </div>
+
+            <div class="resources-grid">
+                <div class="resource-card">
+                    <div class="resource-icon">🔧</div>
+                    <h3>内核开发 Skills</h3>
+                    <ul class="resource-links">
+                        <li><strong>golang-patterns</strong> - Go 并发模式（适用于容器运行时）</li>
+                        <li><strong>cpp-coding-standards</strong> - C++ 编码规范</li>
+                        <li><strong>security-review</strong> - 安全审查（内核代码必备）</li>
+                        <li><strong>tdd-workflow</strong> - 测试驱动开发</li>
+                    </ul>
+                </div>
+
+                <div class="resource-card">
+                    <div class="resource-icon">📊</div>
+                    <h3>性能分析 Skills</h3>
+                    <ul class="resource-links">
+                        <li><strong>postgres-patterns</strong> - 数据库性能优化</li>
+                        <li><strong>clickhouse-io</strong> - ClickHouse 性能分析</li>
+                        <li><strong>api-design</strong> - API 设计最佳实践</li>
+                        <li><strong>backend-patterns</strong> - 后端架构模式</li>
+                    </ul>
+                </div>
+
+                <div class="resource-card">
+                    <div class="resource-icon">🚀</div>
+                    <h3>DevOps Skills</h3>
+                    <ul class="resource-links">
+                        <li><strong>docker-patterns</strong> - Docker 最佳实践</li>
+                        <li><strong>deployment-patterns</strong> - 部署模式</li>
+                        <li><strong>database-migrations</strong> - 数据库迁移</li>
+                        <li><strong>e2e-testing</strong> - 端到端测试</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Quick Start Guide -->
+            <div class="cta-section" style="margin-top: 48px;">
+                <h3>快速上手：云计算内核开发场景</h3>
+                <div class="scenario-prompt" style="text-align: left; margin-top: 24px;">
+                    <h4 style="color: var(--accent-sky); margin-bottom: 16px;">示例：使用 Skills 优化内核调度参数</h4>
+                    <pre><code class="language-text"># 步骤 1：描述你的任务
+你: 我需要优化华为云 ECS 的内核调度参数，降低实时任务的延迟抖动。
+    当前环境是 openEuler 22.03，鲲鹏 920 处理器。
+
+# Claude 自动识别场景，可能激活以下 Skills：
+# - cpp-coding-standards（如果需要编写 C 代码）
+# - security-review（如果涉及安全相关配置）
+# - backend-patterns（系统设计建议）
+
+# 步骤 2：Claude 会提供专业的调优建议
+AI: 我来帮你优化内核调度参数。针对鲲鹏 920 + openEuler 22.03，
+    建议从以下几个方面入手：
+
+    1. 内核启动参数...
+    2. sysctl 配置...
+    3. IRQ 亲和性...
+
+# 步骤 3：请求生成具体配置
+你: 请生成完整的 sysctl 配置文件和验证脚本
+
+# 步骤 4：Claude 生成可用的代码和配置
+AI: [生成 sysctl.conf 配置]
+    [生成验证脚本]
+    [提供测试方法]</code></pre>
+                </div>
+
+                <div class="cta-steps" style="margin-top: 32px;">
+                    <div class="cta-step">
+                        <span class="cta-number">💡</span>
+                        <p>Skills 会在需要时自动激活，无需刻意记忆</p>
+                    </div>
+                    <div class="cta-step">
+                        <span class="cta-number">🎯</span>
+                        <p>描述任务越具体，AI 的建议越精准</p>
+                    </div>
+                    <div class="cta-step">
+                        <span class="cta-number">🔄</span>
+                        <p>遇到问题可以持续对话，逐步优化</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Huawei Cloud Section -->
+    <section id="huaweicloud" class="section huaweicloud">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">// 05. 华为云杭州团队</span>
+                <h2 class="section-title">AI 辅助云计算内核开发方案</h2>
+                <p class="section-desc">
+                    专为华为云杭州团队设计，覆盖虚拟化内核、鲲鹏/昇腾适配、高性能 I/O 等核心领域。
+                </p>
+            </div>
+
+            <!-- Tech Stack Matrix -->
+            <div class="comparison-table-wrapper" style="margin-bottom: 48px;">
+                <h3 class="table-title">技术栈 → AI 辅助方案映射</h3>
+                <div class="table-scroll">
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>技术领域</th>
+                                <th>核心工具</th>
+                                <th>AI 辅助方案</th>
+                                <th>推荐 Skills/MCP</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="highlight">
+                                <td><strong>C/C++ 内核</strong></td>
+                                <td>Linux Kernel 5.10+</td>
+                                <td>代码生成、内存安全检查、性能优化</td>
+                                <td>cpp-coding-standards, security-review</td>
+                            </tr>
+                            <tr>
+                                <td><strong>虚拟化技术</strong></td>
+                                <td>KVM/QEMU, DPDK, SR-IOV</td>
+                                <td>驱动开发、I/O 路径分析、性能调优</td>
+                                <td>docker-patterns, backend-patterns</td>
+                            </tr>
+                            <tr>
+                                <td><strong>eBPF/性能监控</strong></td>
+                                <td>BCC, bpftrace, perf</td>
+                                <td>脚本生成、数据分析、火焰图解读</td>
+                                <td>performance-analysis (自定义)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>硬件适配</strong></td>
+                                <td>鲲鹏/昇腾 SDK, 擎天卡</td>
+                                <td>驱动适配、汇编优化、SIMD 指令</td>
+                                <td>arm-optimization (自定义)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>云原生/Go</strong></td>
+                                <td>Kubernetes, Containerd</td>
+                                <td>Operator 开发、CRD 设计、控制器逻辑</td>
+                                <td>golang-patterns, k8s-patterns</td>
+                            </tr>
+                            <tr>
+                                <td><strong>测试/CI</strong></td>
+                                <td>CodeArts, Jenkins</td>
+                                <td>测试用例生成、流水线配置、代码审查</td>
+                                <td>tdd-workflow, code-review</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- MCP Tools Design -->
+            <h3 class="table-title" style="margin-bottom: 24px;">MCP 工具设计方案</h3>
+            <div class="tools-grid" style="margin-bottom: 48px;">
+                <div class="tool-card featured">
+                    <div class="featured-badge">推荐</div>
+                    <div class="tool-icon">🔧</div>
+                    <h3 class="tool-name">Kernel MCP Server</h3>
+                    <p class="tool-desc">内核参数与性能分析</p>
+                    <div class="tool-use-case">
+                        <strong>核心工具：</strong>
+                        <ul>
+                            <li><code>query_kernel_param</code> - 查询内核参数</li>
+                            <li><code>modify_kernel_param</code> - 修改参数</li>
+                            <li><code>run_perf_record</code> - perf 采样</li>
+                            <li><code>run_bpftrace</code> - eBPF 追踪</li>
+                            <li><code>analyze_flamegraph</code> - 火焰图分析</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-icon">☁️</div>
+                    <h3 class="tool-name">Huawei Cloud MCP</h3>
+                    <p class="tool-desc">华为云 API 集成</p>
+                    <div class="tool-use-case">
+                        <strong>核心工具：</strong>
+                        <ul>
+                            <li><code>query_ecs_instance</code> - ECS 状态</li>
+                            <li><code>get_evs_io_stats</code> - EVS I/O 统计</li>
+                            <li><code>analyze_aom_logs</code> - AOM 日志</li>
+                            <li><code>get_monitor_metrics</code> - 云监控</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-icon">🔍</div>
+                    <h3 class="tool-name">Diagnosis MCP</h3>
+                    <p class="tool-desc">故障诊断工具集</p>
+                    <div class="tool-use-case">
+                        <strong>核心工具：</strong>
+                        <ul>
+                            <li><code>analyze_coredump</code> - Core 分析</li>
+                            <li><code>parse_dmesg</code> - 内核日志</li>
+                            <li><code>check_memory_leak</code> - 内存泄漏</li>
+                            <li><code>diagnose_race_condition</code> - 竞态检测</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-icon">🤖</div>
+                    <h3 class="tool-name">CodeArts MCP</h3>
+                    <p class="tool-desc">研发工具集成</p>
+                    <div class="tool-use-case">
+                        <strong>核心工具：</strong>
+                        <ul>
+                            <li><code>create_merge_request</code> - MR 创建</li>
+                            <li><code>trigger_pipeline</code> - 流水线</li>
+                            <li><code>get_code_review</code> - 代码审查</li>
+                            <li><code>query_build_status</code> - 构建状态</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Agent Architecture -->
+            <div class="recommendation-card" style="margin-bottom: 48px;">
+                <div class="recommendation-header">
+                    <div class="rec-badge">架构设计</div>
+                    <h3>多 Agent 协作架构</h3>
+                    <p>针对云计算内核开发的 Agency-Agents 设计</p>
+                </div>
+                <div class="scenario-prompt" style="text-align: left;">
+                    <pre><code class="language-text">┌─────────────────────────────────────────────────────────────────┐
+│                      Orchestrator Agent                          │
+│                    (任务分解与协调)                               │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────────────────┐  │
+│  │ Perf Agent  │  │ Debug Agent │  │   Code Review Agent     │  │
+│  │             │  │             │  │                         │  │
+│  │ • perf 分析  │  │ • 崩溃分析   │  │ • 代码规范检查           │  │
+│  │ • 火焰图     │  │ • 内存泄漏   │  │ • 安全漏洞扫描           │  │
+│  │ • eBPF 追踪  │  │ • 竞态条件   │  │ • 性能反模式识别         │  │
+│  └─────────────┘  └─────────────┘  └─────────────────────────┘  │
+│                                                                 │
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────────────────┐  │
+│  │ Kernel Agent│  │ Virt Agent  │  │   Cloud API Agent       │  │
+│  │             │  │             │  │                         │  │
+│  │ • 调度器调优 │  │ • KVM 优化   │  │ • ECS/EVS 操作          │  │
+│  │ • 内存管理   │  │ • DPDK 配置  │  │ • 监控数据查询           │  │
+│  │ • I/O 栈    │  │ • SR-IOV     │  │ • 日志服务集成           │  │
+│  └─────────────┘  └─────────────┘  └─────────────────────────┘  │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+
+协作模式示例：
+1. 用户报告性能问题 → Orchestrator 分配给 Perf Agent
+2. Perf Agent 发现内核调度瓶颈 → 转发 Kernel Agent
+3. Kernel Agent 生成优化方案 → Code Review Agent 验证
+4. 所有结果汇总 → 生成综合报告</code></pre>
+                </div>
+            </div>
+
+            <!-- Quick Start for Huawei Cloud -->
+            <div class="cta-section">
+                <h3>华为云团队快速上手指南</h3>
+                <div class="cta-steps" style="margin-top: 32px;">
+                    <div class="cta-step">
+                        <span class="cta-number">1</span>
+                        <p><strong>安装 Claude Code</strong><br>
+                        <code style="font-size: 12px;">curl -fsSL https://claude.ai/install.sh | sh</code></p>
+                    </div>
+                    <div class="cta-step">
+                        <span class="cta-number">2</span>
+                        <p><strong>配置项目 CLAUDE.md</strong><br>
+                        创建项目知识库，说明内核版本、目标平台、编码规范</p>
+                    </div>
+                    <div class="cta-step">
+                        <span class="cta-number">3</span>
+                        <p><strong>安装 MCP Servers</strong><br>
+                        <code style="font-size: 12px;">pip install huawei-kernel-mcp</code></p>
+                    </div>
+                </div>
+
+                <div class="scenario-prompt" style="text-align: left; margin-top: 32px;">
+                    <h4 style="color: var(--accent-sky); margin-bottom: 16px;">典型工作流示例</h4>
+                    <pre><code class="language-bash"># 场景：KVM 虚拟机网络 I/O 性能调优
+
+# 1. 描述任务
+你: 帮我分析 KVM 虚拟机的网络 I/O 性能问题。
+    环境：鲲鹏 920 + openEuler 22.03 + virtio-net
+    问题：吞吐量只能达到 6Gbps，目标是 20Gbps+
+
+# 2. AI 自动激活相关 Skills 和 MCP 工具
+AI: 我来帮你分析 KVM 网络性能问题。
+
+    [调用 perf MCP] 收集 virtio 相关的性能数据...
+    [调用 bpftrace MCP] 追踪网络 I/O 路径...
+
+    分析结果：
+    1. vhost 线程在 CPU 0 上，与网络中断竞争
+    2. virtio 队列数只有 1，未充分利用多核
+    3. 未启用 RSS 和中断合并
+
+# 3. 生成优化方案
+你: 请生成完整的优化配置
+
+AI: [生成 XML 配置] [生成 sysctl 配置] [生成 vhost 绑定脚本]
+
+# 4. 验证效果
+你: 应用后如何验证？
+
+AI: [生成测试脚本] [提供预期指标] [告警阈值建议]</code></pre>
+                </div>
+
+                <div class="resources-grid" style="margin-top: 32px;">
+                    <div class="resource-card">
+                        <div class="resource-icon">📦</div>
+                        <h3>MCP Server 模板</h3>
+                        <ul class="resource-links">
+                            <li><a href="https://github.com/modelcontextprotocol/servers" target="_blank">官方 MCP Servers</a></li>
+                            <li><a href="https://github.com/eunomia-bpf/GPTtrace" target="_blank">GPTtrace (eBPF)</a></li>
+                            <li>华为云内核 MCP (待开源)</li>
+                        </ul>
+                    </div>
+                    <div class="resource-card">
+                        <div class="resource-icon">📚</div>
+                        <h3>内部资源</h3>
+                        <ul class="resource-links">
+                            <li>CodeArts AI 助手文档</li>
+                            <li>鲲鹏开发者文档</li>
+                            <li>openEuler 内核调优指南</li>
+                        </ul>
+                    </div>
+                    <div class="resource-card">
+                        <div class="resource-icon">🎓</div>
+                        <h3>培训资源</h3>
+                        <ul class="resource-links">
+                            <li>Claude Code 快速入门</li>
+                            <li>MCP 开发教程</li>
+                            <li>AI 辅助内核开发实践</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -792,7 +1733,7 @@ AI: 让我看看你的代码... 问题出在头文件。
     <section id="resources" class="section resources">
         <div class="container">
             <div class="section-header">
-                <span class="section-tag">// 05. 资源与下一步</span>
+                <span class="section-tag">// 06. 资源与下一步</span>
                 <h2 class="section-title">继续学习</h2>
                 <p class="section-desc">
                     掌握基础后，这些资源能帮你更深入地使用 AI 编程工具。
@@ -872,6 +1813,8 @@ AI: 让我看看你的代码... 问题出在头文件。
                     <a href="#tools">工具选型</a>
                     <a href="#workflow">实战流程</a>
                     <a href="#scenarios">场景示例</a>
+                    <a href="#skills">Agent Skills</a>
+                    <a href="#huaweicloud">华为云方案</a>
                 </div>
                 <p class="footer-copy">
                     loved by bingo

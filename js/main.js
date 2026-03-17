@@ -11,10 +11,10 @@
     // ============================================
     const CONFIG = {
         typewriterTexts: [
-            'AI 代码入门指南',
-            '代码效率提升器',
-            '智能编程助手',
-            '开发加速工具'
+            '云计算内核开发指南',
+            'KVM 虚拟化优化手册',
+            'eBPF 性能分析指南',
+            '华为云 MCP 工具集'
         ],
         typewriterSpeed: 100,
         typewriterDeleteSpeed: 50,
