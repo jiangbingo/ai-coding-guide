@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="给资深C/云计算开发者的AI代码入门指南 - 从0到1，用AI加速你的开发">
+    <meta name="keywords" content="AI编程, Claude Code, AI工具, 代码生成, C语言, 云计算">
+    <title>AI代码入门指南 | 给资深开发者的实用手册</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Prism.js for code highlighting -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Scanline overlay effect -->
+    <div class="scanlines"></div>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="#" class="nav-logo">
+                <span class="logo-bracket">&gt;</span>
+                <span class="logo-text">AI_CODE</span>
+                <span class="logo-cursor">_</span>
+            </a>
+            <div class="nav-links">
+                <a href="#concepts">基础概念</a>
+                <a href="#tools">工具选型</a>
+                <a href="#workflow">实战流程</a>
+                <a href="#scenarios">场景示例</a>
+                <a href="#resources">资源</a>
+            </div>
+            <button class="nav-toggle" aria-label="菜单">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span class="badge-icon">⚡</span>
+                <span>写给 10+ 年经验的开发者</span>
+            </div>
+            <h1 class="hero-title">
+                <span class="title-line">给资深开发者的</span>
+                <span class="title-highlight typewriter" id="typewriter"></span>
+            </h1>
+            <p class="hero-subtitle">
+                从 0 到 1，用 AI 加速你的 C/云计算开发。<br>
+                无需 AI 背景，直接上手实战。
+            </p>
+            <div class="hero-actions">
+                <a href="#workflow" class="btn btn-primary">
+                    <span class="btn-icon">▶</span>
+                    开始实战
+                </a>
+                <a href="#concepts" class="btn btn-secondary">
+                    了解基础概念
+                </a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat">
+                    <span class="stat-value">5</span>
+                    <span class="stat-label">个核心步骤</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value">4</span>
+                    <span class="stat-label">类 AI 工具</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value">∞</span>
+                    <span class="stat-label">效率提升可能</span>
+                </div>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="terminal">
+                <div class="terminal-header">
+                    <span class="terminal-dot red"></span>
+                    <span class="terminal-dot yellow"></span>
+                    <span class="terminal-dot green"></span>
+                    <span class="terminal-title">ai-assistant.sh</span>
+                </div>
+                <div class="terminal-body">
+                    <div class="terminal-line">
+                        <span class="prompt">$</span>
+                        <span class="command">claude "优化这段 C 代码的性能"</span>
+                    </div>
+                    <div class="terminal-output">
+                        <pre><code class="language-c">// 原代码存在不必要的内存拷贝
+// 优化方案：使用指针传递 + 零拷贝技术
+
+void process_data(const char* input, size_t len) {
+    // 直接操作输入缓冲区，避免拷贝
+    const char* ptr = input;
+    while (len--) {
+        process_byte(*ptr++);
+    }
+}</code></pre>
+                    </div>
+                    <div class="terminal-line">
+                        <span class="prompt">$</span>
+                        <span class="cursor">_</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Tools Concepts Section -->
+    <section id="concepts" class="section concepts">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">// 01. 基础概念</span>
+                <h2 class="section-title">AI 编程工具有 4 种类型</h2>
+                <p class="section-desc">
+                    理解这 4 类工具，你就掌握了 AI 编程的完整版图。
+                    它们就像开发工具链中的不同角色，各司其职。
+                </p>
+            </div>
+
+            <div class="tools-grid">
+                <!-- Chat AI -->
+                <div class="tool-card" data-category="chat">
+                    <div class="tool-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="tool-name">Chat 型 AI</h3>
+                    <p class="tool-desc">技术顾问角色</p>
+                    <div class="tool-examples">
+                        <span class="example-tag">ChatGPT</span>
+                        <span class="example-tag">Claude.ai</span>
+                        <span class="example-tag">Gemini</span>
+                    </div>
+                    <div class="tool-use-case">
+                        <strong>适用场景：</strong>
+                        <ul>
+                            <li>架构设计讨论</li>
+                            <li>技术方案评估</li>
+                            <li>代码审查建议</li>
+                            <li>问题诊断分析</li>
+                        </ul>
+                    </div>
+                    <div class="tool-analogy">
+                        <span class="analogy-icon">💡</span>
+                        <span>就像有一个随时在线的资深架构师，可以讨论任何技术问题</span>
+                    </div>
+                </div>
+
+                <!-- AI IDE -->
+                <div class="tool-card featured" data-category="ide">
+                    <div class="featured-badge">推荐</div>
+                    <div class="tool-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                            <line x1="8" y1="21" x2="16" y2="21"></line>
+                            <line x1="12" y1="17" x2="12" y2="21"></line>
+                        </svg>
+                    </div>
+                    <h3 class="tool-name">AI IDE</h3>
+                    <p class="tool-desc">带 AI 大脑的编辑器</p>
+                    <div class="tool-examples">
+                        <span class="example-tag">Claude Code</span>
+                        <span class="example-tag">Cursor</span>
+                        <span class="example-tag">Windsurf</span>
+                    </div>
+                    <div class="tool-use-case">
+                        <strong>适用场景：</strong>
+                        <ul>
+                            <li>完整项目开发</li>
+                            <li>代码重构</li>
+                            <li>多文件协作</li>
+                            <li>端到端开发</li>
+                        </ul>
+                    </div>
+                    <div class="tool-analogy">
+                        <span class="analogy-icon">💡</span>
+                        <span>就像 VS Code 装上了 AI 大脑，能理解整个项目并主动帮你写代码</span>
+                    </div>
+                </div>
+
+                <!-- AI Plugin -->
+                <div class="tool-card" data-category="plugin">
+                    <div class="tool-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="tool-name">AI 插件</h3>
+                    <p class="tool-desc">IDE 代码补全助手</p>
+                    <div class="tool-examples">
+                        <span class="example-tag">GitHub Copilot</span>
+                        <span class="example-tag">Codeium</span>
+                        <span class="example-tag">Tabnine</span>
+                    </div>
+                    <div class="tool-use-case">
+                        <strong>适用场景：</strong>
+                        <ul>
+                            <li>代码补全</li>
+                            <li>函数生成</li>
+                            <li>注释生成代码</li>
+                            <li>快速原型</li>
+                        </ul>
+                    </div>
+                    <div class="tool-analogy">
+                        <span class="analogy-icon">💡</span>
+                        <span>就像超强的自动补全，你写个注释它就能帮你写出完整函数</span>
+                    </div>
+                </div>
+
+                <!-- AI CLI -->
+                <div class="tool-card" data-category="cli">
+                    <div class="tool-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="4 17 10 11 4 5"></polyline>
+                            <line x1="12" y1="19" x2="20" y2="19"></line>
+                        </svg>
+                    </div>
+                    <h3 class="tool-name">AI CLI</h3>
+                    <p class="tool-desc">命令行 AI 工具</p>
+                    <div class="tool-examples">
+                        <span class="example-tag">aider</span>
+                        <span class="example-tag">Amazon Q</span>
+                        <span class="example-tag">shell-ai</span>
+                    </div>
+                    <div class="tool-use-case">
+                        <strong>适用场景：</strong>
+                        <ul>
+                            <li>命令生成</li>
+                            <li>脚本编写</li>
+                            <li>DevOps 自动化</li>
+                            <li>日志分析</li>
+                        </ul>
+                    </div>
+                    <div class="tool-analogy">
+                        <span class="analogy-icon">💡</span>
+                        <span>就像有一个熟悉所有命令行工具的运维专家，随时帮你写脚本</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tools Recommendation Section -->
+    <section id="tools" class="section tools">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">// 02. 工具选型</span>
+                <h2 class="section-title">选什么工具？</h2>
+                <p class="section-desc">
+                    基于 C/云计算开发场景，我们重点推荐 Claude Code。
+                    以下是详细的对比分析。
+                </p>
+            </div>
+
+            <div class="recommendation-card">
+                <div class="recommendation-header">
+                    <div class="rec-badge">重点推荐</div>
+                    <h3>Claude Code</h3>
+                    <p>Anthropic 官方出品的 AI 编程助手</p>
+                </div>
+                <div class="recommendation-features">
+                    <div class="feature">
+                        <span class="feature-icon">✓</span>
+                        <div class="feature-content">
+                            <strong>强大的代码理解能力</strong>
+                            <p>能理解复杂项目结构，C 语言指针、内存管理等都不在话下</p>
+                        </div>
+                    </div>
+                    <div class="feature">
+                        <span class="feature-icon">✓</span>
+                        <div class="feature-content">
+                            <strong>命令行原生</strong>
+                            <p>直接在终端使用，完美契合云计算开发者的工作流</p>
+                        </div>
+                    </div>
+                    <div class="feature">
+                        <span class="feature-icon">✓</span>
+                        <div class="feature-content">
+                            <strong>安全的代码处理</strong>
+                            <p>支持私有部署，敏感代码不出本地</p>
+                        </div>
+                    </div>
+                    <div class="feature">
+                        <span class="feature-icon">✓</span>
+                        <div class="feature-content">
+                            <strong>多文件协作</strong>
+                            <p>能同时处理多个相关文件，理解项目级别的依赖关系</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="recommendation-links">
+                    <a href="https://docs.anthropic.com/en/docs/claude-code" target="_blank" class="link-btn">
+                        📖 官方文档
+                    </a>
+                    <a href="https://github.com/anthropics/claude-code" target="_blank" class="link-btn">
+                        🔗 GitHub
+                    </a>
+                </div>
+            </div>
+
+            <!-- Comparison Table -->
+            <div class="comparison-table-wrapper">
+                <h3 class="table-title">工具对比</h3>
+                <div class="table-scroll">
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>工具</th>
+                                <th>类型</th>
+                                <th>优点</th>
+                                <th>缺点</th>
+                                <th>最适合场景</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="highlight">
+                                <td><strong>Claude Code</strong></td>
+                                <td>AI IDE/CLI</td>
+                                <td>代码理解强、命令行原生、安全可控</td>
+                                <td>需要订阅</td>
+                                <td>C/云计算、复杂项目</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Cursor</strong></td>
+                                <td>AI IDE</td>
+                                <td>VS Code 体验、上手简单</td>
+                                <td>GUI 依赖、云端处理</td>
+                                <td>Web 开发、快速原型</td>
+                            </tr>
+                            <tr>
+                                <td><strong>GitHub Copilot</strong></td>
+                                <td>AI 插件</td>
+                                <td>补全精准、生态成熟</td>
+                                <td>单文件思维、项目理解弱</td>
+                                <td>日常编码、函数生成</td>
+                            </tr>
+                            <tr>
+                                <td><strong>aider</strong></td>
+                                <td>AI CLI</td>
+                                <td>开源免费、Git 集成</td>
+                                <td>需要自己配置模型</td>
+                                <td>开源爱好者、定制需求</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Workflow Section -->
+    <section id="workflow" class="section workflow">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">// 03. 实战流程</span>
+                <h2 class="section-title">5 步让 AI 帮你写代码</h2>
+                <p class="section-desc">
+                    这是一套经过验证的实战流程，适用于任何 AI 编程工具。
+                    掌握这 5 步，你就能高效地与 AI 协作。
+                </p>
+            </div>
+
+            <div class="workflow-steps">
+                <!-- Step 1 -->
+                <div class="step" data-step="1">
+                    <div class="step-number">01</div>
+                    <div class="step-content">
+                        <h3 class="step-title">明确需求</h3>
+                        <p class="step-desc">
+                            清晰描述你想要实现什么。越具体，AI 的输出越精准。
+                        </p>
+                        <div class="step-example">
+                            <div class="example-header">
+                                <span class="example-label">示例</span>
+                                <button class="copy-btn" data-code="step1">复制</button>
+                            </div>
+                            <pre><code class="language-text">❌ 模糊的描述：
+"帮我写个网络程序"
+
+✓ 清晰的描述：
+"用 C 语言实现一个高性能 TCP 服务器：
+- 使用 epoll 实现多路复用
+- 支持至少 10000 并发连接
+- 每个连接需要独立的读缓冲区
+- 目标平台是 Linux (CentOS 7)"</code></pre>
+                        </div>
+                        <div class="step-tips">
+                            <span class="tip-icon">💡</span>
+                            <span>技巧：说明语言、平台、性能要求、约束条件</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="step" data-step="2">
+                    <div class="step-number">02</div>
+                    <div class="step-content">
+                        <h3 class="step-title">选择工具</h3>
+                        <p class="step-desc">
+                            根据任务类型选择合适的 AI 工具。
+                        </p>
+                        <div class="tool-choice-grid">
+                            <div class="choice-card">
+                                <span class="choice-icon">🔧</span>
+                                <strong>完整功能开发</strong>
+                                <p>Claude Code / Cursor</p>
+                            </div>
+                            <div class="choice-card">
+                                <span class="choice-icon">📝</span>
+                                <strong>快速函数补全</strong>
+                                <p>GitHub Copilot</p>
+                            </div>
+                            <div class="choice-card">
+                                <span class="choice-icon">🤔</span>
+                                <strong>架构讨论</strong>
+                                <p>Claude.ai / ChatGPT</p>
+                            </div>
+                            <div class="choice-card">
+                                <span class="choice-icon">⚙️</span>
+                                <strong>脚本/运维</strong>
+                                <p>AI CLI 工具</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="step" data-step="3">
+                    <div class="step-number">03</div>
+                    <div class="step-content">
+                        <h3 class="step-title">投喂上下文</h3>
+                        <p class="step-desc">
+                            让 AI 了解你的项目背景。上下文越充分，结果越准确。
+                        </p>
+                        <div class="context-types">
+                            <div class="context-type">
+                                <h4>📁 项目结构</h4>
+                                <p>告诉 AI 你的项目是如何组织的</p>
+                            </div>
+                            <div class="context-type">
+                                <h4>📄 相关代码</h4>
+                                <p>提供需要参考或修改的现有代码</p>
+                            </div>
+                            <div class="context-type">
+                                <h4>📋 编码规范</h4>
+                                <p>说明命名风格、错误处理方式等</p>
+                            </div>
+                            <div class="context-type">
+                                <h4>⚠️ 约束条件</h4>
+                                <p>性能要求、兼容性、安全限制</p>
+                            </div>
+                        </div>
+                        <div class="step-example">
+                            <div class="example-header">
+                                <span class="example-label">Claude Code 示例</span>
+                                <button class="copy-btn" data-code="step3">复制</button>
+                            </div>
+                            <pre><code class="language-bash"># 在项目根目录启动 Claude Code
+cd ~/my-project
+claude
+
+# Claude 会自动读取：
+# - CLAUDE.md (项目说明)
+# - 相关源文件
+# - Git 历史</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="step" data-step="4">
+                    <div class="step-number">04</div>
+                    <div class="step-content">
+                        <h3 class="step-title">生成代码</h3>
+                        <p class="step-desc">
+                            AI 生成代码后，你需要审查和验证。
+                        </p>
+                        <div class="check-list">
+                            <div class="check-item">
+                                <span class="check-icon">✓</span>
+                                <span>检查逻辑是否正确</span>
+                            </div>
+                            <div class="check-item">
+                                <span class="check-icon">✓</span>
+                                <span>验证边界条件处理</span>
+                            </div>
+                            <div class="check-item">
+                                <span class="check-icon">✓</span>
+                                <span>确认内存安全（C 语言）</span>
+                            </div>
+                            <div class="check-item">
+                                <span class="check-icon">✓</span>
+                                <span>检查错误处理完整性</span>
+                            </div>
+                            <div class="check-item">
+                                <span class="check-icon">✓</span>
+                                <span>验证是否符合编码规范</span>
+                            </div>
+                        </div>
+                        <div class="warning-box">
+                            <span class="warning-icon">⚠️</span>
+                            <div>
+                                <strong>重要提醒</strong>
+                                <p>AI 生成的代码不是 100% 正确的。作为资深开发者，你的审查是必不可少的环节。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 5 -->
+                <div class="step" data-step="5">
+                    <div class="step-number">05</div>
+                    <div class="step-content">
+                        <h3 class="step-title">调试优化</h3>
+                        <p class="step-desc">
+                            遇到问题？让 AI 帮你调试。迭代优化直到满意。
+                        </p>
+                        <div class="step-example">
+                            <div class="example-header">
+                                <span class="example-label">调试对话示例</span>
+                                <button class="copy-btn" data-code="step5">复制</button>
+                            </div>
+                            <pre><code class="language-text">你: 代码编译报错了，错误信息是：
+    "undefined reference to 'epoll_create1'"
+
+AI: 这个错误说明你的系统 epoll 支持可能有问题。
+    请检查：
+    1. 内核版本 (需要 2.6.27+)
+    2. 编译时是否正确链接
+
+    尝试在编译命令中添加 -lrt 参数：
+    gcc -o server server.c -lrt
+
+你: 加了 -lrt 还是报错
+
+AI: 让我看看你的代码... 问题出在头文件。
+    epoll_create1 需要 _GNU_SOURCE 宏。
+
+    在文件开头添加：
+    #define _GNU_SOURCE
+    #include &lt;sys/epoll.h&gt;</code></pre>
+                        </div>
+                        <div class="iteration-flow">
+                            <span>提问 → 获得解答 → 尝试 → 反馈结果 → 继续优化</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scenarios Section -->
+    <section id="scenarios" class="section scenarios">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">// 04. 场景示例</span>
+                <h2 class="section-title">C/云计算实战场景</h2>
+                <p class="section-desc">
+                    这些是 C/云计算开发者最常遇到的场景，
+                    每个场景都附有可直接使用的提示词模板。
+                </p>
+            </div>
+
+            <div class="scenario-accordion">
+                <!-- Scenario 1 -->
+                <div class="scenario-item">
+                    <button class="scenario-header">
+                        <span class="scenario-icon">⚡</span>
+                        <div class="scenario-title">
+                            <h3>C 语言代码性能优化</h3>
+                            <p>内存、CPU、I/O 优化技巧</p>
+                        </div>
+                        <span class="scenario-toggle">+</span>
+                    </button>
+                    <div class="scenario-content">
+                        <div class="scenario-case">
+                            <h4>场景描述</h4>
+                            <p>有一个处理网络数据包的函数，在高并发下性能不够理想，需要优化。</p>
+                        </div>
+                        <div class="scenario-prompt">
+                            <h4>提示词模板</h4>
+                            <button class="copy-btn" data-code="scenario1">复制</button>
+                            <pre><code class="language-text">请帮我优化这个 C 函数的性能：
+
+[code here]
+
+当前问题：
+- 在 10k 并发下 CPU 使用率过高 (80%+)
+- 函数被频繁调用，是热点路径
+
+优化目标：
+- 降低 CPU 使用率
+- 减少内存分配次数
+- 保持代码可读性
+
+环境信息：
+- 目标平台：Linux x86_64
+- 编译器：GCC 9+
+- 可使用 SIMD 指令</code></pre>
+                        </div>
+                        <div class="scenario-tips">
+                            <h4>AI 通常会建议</h4>
+                            <ul>
+                                <li>减少内存分配（预分配、对象池）</li>
+                                <li>避免不必要的拷贝（指针传递）</li>
+                                <li>使用更高效的数据结构</li>
+                                <li>SIMD 向量化</li>
+                                <li>缓存友好的内存布局</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Scenario 2 -->
+                <div class="scenario-item">
+                    <button class="scenario-header">
+                        <span class="scenario-icon">☁️</span>
+                        <div class="scenario-title">
+                            <h3>云服务脚本编写</h3>
+                            <p>自动化部署、监控、运维脚本</p>
+                        </div>
+                        <span class="scenario-toggle">+</span>
+                    </button>
+                    <div class="scenario-content">
+                        <div class="scenario-case">
+                            <h4>场景描述</h4>
+                            <p>需要编写一个自动化脚本，监控服务器状态并在异常时发送告警。</p>
+                        </div>
+                        <div class="scenario-prompt">
+                            <h4>提示词模板</h4>
+                            <button class="copy-btn" data-code="scenario2">复制</button>
+                            <pre><code class="language-text">请帮我写一个服务器监控脚本：
+
+需求：
+1. 监控 CPU、内存、磁盘使用率
+2. 监控指定进程是否存活
+3. 监控 TCP 端口是否可连接
+4. 异常时通过企业微信发送告警
+
+技术要求：
+- 使用 Bash 或 Python
+- 兼容 CentOS 7 / Ubuntu 20.04
+- 低资源占用
+- 支持配置文件
+
+输出要求：
+- 完整脚本代码
+- 配置文件模板
+- systemd service 文件</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Scenario 3 -->
+                <div class="scenario-item">
+                    <button class="scenario-header">
+                        <span class="scenario-icon">📚</span>
+                        <div class="scenario-title">
+                            <h3>技术文档生成</h3>
+                            <p>API 文档、架构说明、代码注释</p>
+                        </div>
+                        <span class="scenario-toggle">+</span>
+                    </button>
+                    <div class="scenario-content">
+                        <div class="scenario-case">
+                            <h4>场景描述</h4>
+                            <p>有一个复杂的 C 模块，需要为其他团队生成 API 文档。</p>
+                        </div>
+                        <div class="scenario-prompt">
+                            <h4>提示词模板</h4>
+                            <button class="copy-btn" data-code="scenario3">复制</button>
+                            <pre><code class="language-text">请为以下 C 代码生成 API 文档：
+
+[code here]
+
+文档要求：
+1. 每个公开函数的说明
+2. 参数说明（类型、含义、约束）
+3. 返回值说明
+4. 使用示例
+5. 线程安全性说明
+6. 错误处理指南
+
+格式要求：
+- Markdown 格式
+- 中文文档
+- 包含代码高亮</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Scenario 4 -->
+                <div class="scenario-item">
+                    <button class="scenario-header">
+                        <span class="scenario-icon">🔄</span>
+                        <div class="scenario-title">
+                            <h3>老代码重构</h3>
+                            <p>遗留系统现代化、代码清理</p>
+                        </div>
+                        <span class="scenario-toggle">+</span>
+                    </button>
+                    <div class="scenario-content">
+                        <div class="scenario-case">
+                            <h4>场景描述</h4>
+                            <p>有一段 10 年前的 C 代码，需要重构以提高可维护性和安全性。</p>
+                        </div>
+                        <div class="scenario-prompt">
+                            <h4>提示词模板</h4>
+                            <button class="copy-btn" data-code="scenario4">复制</button>
+                            <pre><code class="language-text">请帮我重构这段 C 代码：
+
+[code here]
+
+重构目标：
+1. 提高代码可读性
+2. 修复潜在的内存安全问题
+3. 添加适当的错误处理
+4. 拆分过长的函数
+
+约束条件：
+- 保持 API 兼容性
+- 不改变核心逻辑
+- 兼容 GCC 4.8+ (CentOS 7)
+
+请分步骤进行：
+1. 先分析现有代码的问题
+2. 给出重构方案
+3. 逐步实现
+4. 说明每个改动的原因</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Scenario 5 -->
+                <div class="scenario-item">
+                    <button class="scenario-header">
+                        <span class="scenario-icon">🐛</span>
+                        <div class="scenario-title">
+                            <h3>Bug 诊断与修复</h3>
+                            <p>崩溃分析、内存泄漏、竞态条件</p>
+                        </div>
+                        <span class="scenario-toggle">+</span>
+                    </button>
+                    <div class="scenario-content">
+                        <div class="scenario-case">
+                            <h4>场景描述</h4>
+                            <p>程序在高并发下偶现崩溃，怀疑是竞态条件。</p>
+                        </div>
+                        <div class="scenario-prompt">
+                            <h4>提示词模板</h4>
+                            <button class="copy-btn" data-code="scenario5">复制</button>
+                            <pre><code class="language-text">请帮我诊断这个崩溃问题：
+
+程序信息：
+- 多线程网络服务
+- 使用 pthread + epoll
+- 偶现崩溃（约每 100 小时一次）
+
+崩溃信息：
+[crash log / core dump backtrace here]
+
+相关代码：
+[code here]
+
+请分析：
+1. 可能的竞态条件在哪里
+2. 如何修复
+3. 如何添加防护措施
+4. 建议的测试方法</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Resources Section -->
+    <section id="resources" class="section resources">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">// 05. 资源与下一步</span>
+                <h2 class="section-title">继续学习</h2>
+                <p class="section-desc">
+                    掌握基础后，这些资源能帮你更深入地使用 AI 编程工具。
+                </p>
+            </div>
+
+            <div class="resources-grid">
+                <div class="resource-card">
+                    <div class="resource-icon">📖</div>
+                    <h3>官方文档</h3>
+                    <ul class="resource-links">
+                        <li><a href="https://docs.anthropic.com/en/docs/claude-code" target="_blank">Claude Code 官方文档</a></li>
+                        <li><a href="https://docs.anthropic.com/en/docs/resources/prompt-engineering" target="_blank">Prompt Engineering 指南</a></li>
+                        <li><a href="https://github.com/anthropics/claude-code" target="_blank">Claude Code GitHub</a></li>
+                    </ul>
+                </div>
+
+                <div class="resource-card">
+                    <div class="resource-icon">🎓</div>
+                    <h3>学习资源</h3>
+                    <ul class="resource-links">
+                        <li><a href="https://www.anthropic.com/learn" target="_blank">Anthropic 学习中心</a></li>
+                        <li><a href="https://promptengineering.org" target="_blank">Prompt Engineering 社区</a></li>
+                        <li><a href="https://github.com/features/copilot" target="_blank">GitHub Copilot 文档</a></li>
+                    </ul>
+                </div>
+
+                <div class="resource-card">
+                    <div class="resource-icon">💬</div>
+                    <h3>社区交流</h3>
+                    <ul class="resource-links">
+                        <li><a href="https://discord.gg/anthropic" target="_blank">Anthropic Discord</a></li>
+                        <li><a href="https://www.reddit.com/r/ClaudeAI" target="_blank">r/ClaudeAI Reddit</a></li>
+                        <li><a href="https://twitter.com/AnthropicAI" target="_blank">@AnthropicAI Twitter</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="cta-section">
+                <h3>下一步行动</h3>
+                <div class="cta-steps">
+                    <div class="cta-step">
+                        <span class="cta-number">1</span>
+                        <p>安装 Claude Code 或选择一个 AI 工具</p>
+                    </div>
+                    <div class="cta-step">
+                        <span class="cta-number">2</span>
+                        <p>用本文的提示词模板试一个简单任务</p>
+                    </div>
+                    <div class="cta-step">
+                        <span class="cta-number">3</span>
+                        <p>逐步把 AI 融入你的日常工作流</p>
+                    </div>
+                </div>
+                <div class="cta-quote">
+                    <blockquote>
+                        "AI 不会取代程序员，但会用 AI 的程序员会取代不会用的。"
+                    </blockquote>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <span class="logo-bracket">&gt;</span>
+                    <span class="logo-text">AI_CODE</span>
+                </div>
+                <p class="footer-desc">
+                    帮助资深开发者快速上手 AI 编程工具
+                </p>
+                <div class="footer-links">
+                    <a href="#concepts">基础概念</a>
+                    <a href="#tools">工具选型</a>
+                    <a href="#workflow">实战流程</a>
+                    <a href="#scenarios">场景示例</a>
+                </div>
+                <p class="footer-copy">
+                    Made with ❤️ for developers | 2024
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to top button -->
+    <button class="back-to-top" aria-label="返回顶部">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+    </button>
+
+    <!-- Prism.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-c.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+
+    <!-- Main JS -->
+    <script src="js/main.js"></script>
+</body>
+</html>
