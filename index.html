@@ -1539,6 +1539,56 @@ AI: [生成 sysctl.conf 配置]
                 </div>
             </div>
 
+            <!-- Project Skills -->
+            <div class="recommendation-card" style="margin-bottom: 48px;">
+                <div class="recommendation-header">
+                    <div class="rec-badge">本项目专属</div>
+                    <h3>本仓库提供的 Skills</h3>
+                    <p>可直接复制到 ~/.claude/skills/ 目录使用</p>
+                </div>
+                <div class="skills-usage" style="text-align: left; padding: 24px;">
+                    <h4 style="color: var(--accent-pink); margin-bottom: 16px;">📁 Skills 目录结构</h4>
+                    <pre style="background: var(--code-bg); padding: 16px; border-radius: 8px; margin-bottom: 24px;"><code>skills/
+├── kernel-scheduler-tuning/
+│   └── SKILL.md          # 内核调度优化
+└── smoke-test-ops/
+    └── SKILL.md          # 冒烟测试专家</code></pre>
+
+                    <h4 style="color: var(--accent-mint); margin-bottom: 16px;">🚀 安装方法</h4>
+                    <pre style="background: var(--code-bg); padding: 16px; border-radius: 8px; margin-bottom: 24px;"><code class="language-bash"># 克隆仓库
+git clone https://github.com/jiangbingo/ai-coding-guide.git
+
+# 复制 Skills 到 Claude Code
+cp -r ai-coding-guide/skills/* ~/.claude/skills/
+
+# 验证安装
+claude skills list</code></pre>
+
+                    <h4 style="color: var(--accent-lavender); margin-bottom: 16px;">💡 使用示例</h4>
+                    <div style="display: grid; gap: 16px;">
+                        <div style="background: rgba(255, 183, 197, 0.1); padding: 16px; border-radius: 8px; border-left: 4px solid var(--accent-pink);">
+                            <strong style="color: var(--accent-pink);">kernel-scheduler-tuning</strong>
+                            <pre style="margin-top: 8px; font-size: 13px;"><code>你: 我的鲲鹏 920 服务器实时任务有 500us 延迟抖动，帮我优化。
+
+AI: [自动激活 kernel-scheduler-tuning]
+→ 收集 CPU 拓扑和 NUMA 信息
+→ 分析当前隔离配置
+→ 生成 GRUB 和 sysctl 优化方案</code></pre>
+                        </div>
+                        <div style="background: rgba(168, 230, 207, 0.1); padding: 16px; border-radius: 8px; border-left: 4px solid var(--accent-mint);">
+                            <strong style="color: var(--accent-mint);">smoke-test-ops</strong>
+                            <pre style="margin-top: 8px; font-size: 13px;"><code>你: 帮我做一个 openEuler 内核的冒烟测试。
+
+AI: [自动激活 smoke-test-ops]
+→ 检查内核版本和 KVM 支持
+→ 测试虚拟机生命周期
+→ 验证网络和存储 I/O
+→ 生成测试报告</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Skills for Huawei Cloud -->
             <h3 class="table-title" style="margin-bottom: 24px;">华为云计算内核 Skills 清单</h3>
             <div class="tools-grid" style="margin-bottom: 48px;">
@@ -1675,8 +1725,8 @@ AI: [生成 sysctl.conf 配置]
                     </div>
                     <div class="cta-step">
                         <span class="cta-number">3</span>
-                        <p><strong>安装 MCP Servers</strong><br>
-                        <code style="font-size: 12px;">pip install huawei-kernel-mcp</code></p>
+                        <p><strong>安装云计算 Skills</strong><br>
+                        <code style="font-size: 12px;">cp skills/* ~/.claude/skills/</code></p>
                     </div>
                 </div>
 
@@ -1689,11 +1739,12 @@ AI: [生成 sysctl.conf 配置]
     环境：鲲鹏 920 + openEuler 22.03 + virtio-net
     问题：吞吐量只能达到 6Gbps，目标是 20Gbps+
 
-# 2. AI 自动激活相关 Skills 和 MCP 工具
-AI: 我来帮你分析 KVM 网络性能问题。
+# 2. AI 自动激活相关 Skills
+AI: [激活 kernel-scheduler-tuning 和 smoke-test-ops]
+    我来帮你分析 KVM 网络性能问题。
 
-    [调用 perf MCP] 收集 virtio 相关的性能数据...
-    [调用 bpftrace MCP] 追踪网络 I/O 路径...
+    收集 virtio 相关的性能数据...
+    追踪网络 I/O 路径...
 
     分析结果：
     1. vhost 线程在 CPU 0 上，与网络中断竞争
