@@ -1539,67 +1539,82 @@ AI: [生成 sysctl.conf 配置]
                 </div>
             </div>
 
-            <!-- MCP Tools Design -->
-            <h3 class="table-title" style="margin-bottom: 24px;">MCP 工具设计方案</h3>
+            <!-- Skills for Huawei Cloud -->
+            <h3 class="table-title" style="margin-bottom: 24px;">华为云计算内核 Skills 清单</h3>
             <div class="tools-grid" style="margin-bottom: 48px;">
                 <div class="tool-card featured">
                     <div class="featured-badge">推荐</div>
                     <div class="tool-icon">🔧</div>
-                    <h3 class="tool-name">Kernel MCP Server</h3>
-                    <p class="tool-desc">内核参数与性能分析</p>
+                    <h3 class="tool-name">kernel-scheduler-tuning</h3>
+                    <p class="tool-desc">内核调度参数优化</p>
                     <div class="tool-use-case">
-                        <strong>核心工具：</strong>
+                        <strong>触发条件：</strong>
                         <ul>
-                            <li><code>query_kernel_param</code> - 查询内核参数</li>
-                            <li><code>modify_kernel_param</code> - 修改参数</li>
-                            <li><code>run_perf_record</code> - perf 采样</li>
-                            <li><code>run_bpftrace</code> - eBPF 追踪</li>
-                            <li><code>analyze_flamegraph</code> - 火焰图分析</li>
+                            <li>调度延迟、CPU 隔离、isolcpus</li>
+                            <li>NUMA、实时性、nohz</li>
+                        </ul>
+                        <strong>能力：</strong>
+                        <ul>
+                            <li>诊断调度延迟抖动</li>
+                            <li>生成 GRUB/sysctl 配置</li>
+                            <li>IRQ 亲和性优化</li>
                         </ul>
                     </div>
                 </div>
 
                 <div class="tool-card">
                     <div class="tool-icon">☁️</div>
-                    <h3 class="tool-name">Huawei Cloud MCP</h3>
-                    <p class="tool-desc">华为云 API 集成</p>
+                    <h3 class="tool-name">cloud-performance-analysis</h3>
+                    <p class="tool-desc">云性能分析专家</p>
                     <div class="tool-use-case">
-                        <strong>核心工具：</strong>
+                        <strong>触发条件：</strong>
                         <ul>
-                            <li><code>query_ecs_instance</code> - ECS 状态</li>
-                            <li><code>get_evs_io_stats</code> - EVS I/O 统计</li>
-                            <li><code>analyze_aom_logs</code> - AOM 日志</li>
-                            <li><code>get_monitor_metrics</code> - 云监控</li>
+                            <li>性能分析、火焰图、perf</li>
+                            <li>eBPF、BCC、性能瓶颈</li>
+                        </ul>
+                        <strong>能力：</strong>
+                        <ul>
+                            <li>解读 perf 报告</li>
+                            <li>分析火焰图热点</li>
+                            <li>识别性能反模式</li>
                         </ul>
                     </div>
                 </div>
 
                 <div class="tool-card">
                     <div class="tool-icon">🔍</div>
-                    <h3 class="tool-name">Diagnosis MCP</h3>
-                    <p class="tool-desc">故障诊断工具集</p>
+                    <h3 class="tool-name">kernel-debug-assistant</h3>
+                    <p class="tool-desc">内核调试助手</p>
                     <div class="tool-use-case">
-                        <strong>核心工具：</strong>
+                        <strong>触发条件：</strong>
                         <ul>
-                            <li><code>analyze_coredump</code> - Core 分析</li>
-                            <li><code>parse_dmesg</code> - 内核日志</li>
-                            <li><code>check_memory_leak</code> - 内存泄漏</li>
-                            <li><code>diagnose_race_condition</code> - 竞态检测</li>
+                            <li>崩溃、panic、coredump</li>
+                            <li>内存泄漏、竞态条件</li>
+                        </ul>
+                        <strong>能力：</strong>
+                        <ul>
+                            <li>分析崩溃堆栈</li>
+                            <li>诊断内存问题</li>
+                            <li>定位竞态条件</li>
                         </ul>
                     </div>
                 </div>
 
                 <div class="tool-card">
                     <div class="tool-icon">🤖</div>
-                    <h3 class="tool-name">CodeArts MCP</h3>
-                    <p class="tool-desc">研发工具集成</p>
+                    <h3 class="tool-name">smoke-test-ops</h3>
+                    <p class="tool-desc">冒烟测试专家</p>
                     <div class="tool-use-case">
-                        <strong>核心工具：</strong>
+                        <strong>触发条件：</strong>
                         <ul>
-                            <li><code>create_merge_request</code> - MR 创建</li>
-                            <li><code>trigger_pipeline</code> - 流水线</li>
-                            <li><code>get_code_review</code> - 代码审查</li>
-                            <li><code>query_build_status</code> - 构建状态</li>
+                            <li>冒烟测试、smoke test</li>
+                            <li>基础验证、快速测试</li>
+                        </ul>
+                        <strong>能力：</strong>
+                        <ul>
+                            <li>环境预检</li>
+                            <li>KVM 生命周期测试</li>
+                            <li>网络/存储验证</li>
                         </ul>
                     </div>
                 </div>
