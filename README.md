@@ -101,6 +101,26 @@ open index.html
 5. **场景示例** - 5 个 C/云计算场景
 6. **资源推荐** - 学习资源链接
 
+## 🚀 在线访问
+
+- **主页面**: [https://jiangbingo.github.io/ai-coding-guide/](https://jiangbingo.github.io/ai-coding-guide/)
+- **华为云 Agent 系统展示**: [https://jiangbingo.github.io/ai-coding-guide/agents-showcase.html](https://jiangbingo.github.io/ai-coding-guide/agents-showcase.html)
+
+### 华为云内核开发 Agent 系统
+
+基于 MCP 协议的多 Agent 协作系统，包含：
+
+- 🧪 **UT Agent** - 单元测试自动化
+- 🔧 **SCT Agent** - 系统组件测试
+- 🔗 **MCT Agent** - 模块集成测试
+- 🐛 **Debug Agent** - 内核调试
+- ⚡ **Perf Agent** - 性能分析
+
+详细文档：
+- [Agent 系统设计](./docs/HUAWEI-CLOUD-AGENT-SYSTEM.md)
+- [Agent 配置指南](./agents/README.md)
+- [开发计划](./DEVELOPMENT-PLAN.md)
+
 ## 🔧 自定义
 
 ### 修改配色
